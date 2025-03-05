@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="maram">
+        <createTable tableName="api">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="path" type="VARCHAR(255)"/>
+            <column name="method" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="tags" type="VARCHAR(255)"/>
+            <column name="schema_name" type="VARCHAR(255)"/>
+            <column name="request_body" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="maram">
+        <createTable tableName="api_parameters">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="api_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_api_parameters_api" referencedTableName="api" referencedColumnNames="id"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="typein" type="VARCHAR(255)"/>
+            <column name="data_type" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="required" type="BOOLEAN"/>
+            <column name="example" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="maram">
+        <createTable tableName="api_schema">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="schemas" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="maram">
+        <createTable tableName="api_responses">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="api_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_api_responses_api" referencedTableName="api" referencedColumnNames="id"/>
+            </column>
+            <column name="id_schema" type="BIGINT">
+                <constraints foreignKeyName="fk_api_responses_schema" referencedTableName="api_schema" referencedColumnNames="id"/>
+            </column>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name_schema" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
