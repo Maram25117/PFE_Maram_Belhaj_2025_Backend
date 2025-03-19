@@ -1,0 +1,593 @@
+{
+  "item" : [ {
+    "request" : {
+      "method" : "DELETE",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : ""
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts", "{id}" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/accounts/{id}"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "DELETE",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "404",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "DELETE",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "204",
+      "body" : "No schema defined"
+    }, {
+      "originalRequest" : {
+        "method" : "DELETE",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : ""
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts", "{id}" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/accounts/{id}"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "200",
+      "body" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "404",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : ""
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/accounts"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "200",
+      "body" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "400",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    } ],
+    "name" : "/api/accounts"
+  }, {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : ""
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/transactions"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "200",
+      "body" : "{\"description\":\"<string>\",\"montant\":\"<number>\",\"id\":\"<long>\",\"type\":\"<string>\",\"account\":\"<unknown>\",\"dateTransaction\":\"<string>\"}"
+    } ],
+    "name" : "/api/transactions"
+  }, {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : ""
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions", "{id}" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/transactions/{id}"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "404",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "GET",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "200",
+      "body" : "{\"description\":\"<string>\",\"montant\":\"<number>\",\"id\":\"<long>\",\"type\":\"<string>\",\"account\":\"<unknown>\",\"dateTransaction\":\"<string>\"}"
+    } ],
+    "name" : "/api/transactions/{id}"
+  }, {
+    "request" : {
+      "method" : "DELETE",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : ""
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions", "{id}" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/transactions/{id}"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "DELETE",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "204",
+      "body" : "No schema defined"
+    }, {
+      "originalRequest" : {
+        "method" : "DELETE",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "DELETE",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : ""
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "404",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    } ],
+    "name" : "/api/transactions/{id}"
+  }, {
+    "request" : {
+      "method" : "PUT",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts", "{id}" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/accounts/{id}"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "PUT",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "404",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "PUT",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "PUT",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts", "{id}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts/{id}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "200",
+      "body" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "request" : {
+      "method" : "POST",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{\"description\":\"<string>\",\"montant\":\"<number>\",\"id\":\"<long>\",\"type\":\"<string>\",\"account\":\"<unknown>\",\"dateTransaction\":\"<string>\"}"
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions", "accounts", "{accountId}" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/transactions/accounts/{accountId}"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "POST",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"description\":\"<string>\",\"montant\":\"<number>\",\"id\":\"<long>\",\"type\":\"<string>\",\"account\":\"<unknown>\",\"dateTransaction\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "accounts", "{accountId}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/accounts/{accountId}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "201",
+      "body" : "{\"description\":\"<string>\",\"montant\":\"<number>\",\"id\":\"<long>\",\"type\":\"<string>\",\"account\":\"<unknown>\",\"dateTransaction\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "POST",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"description\":\"<string>\",\"montant\":\"<number>\",\"id\":\"<long>\",\"type\":\"<string>\",\"account\":\"<unknown>\",\"dateTransaction\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "accounts", "{accountId}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/accounts/{accountId}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "POST",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"description\":\"<string>\",\"montant\":\"<number>\",\"id\":\"<long>\",\"type\":\"<string>\",\"account\":\"<unknown>\",\"dateTransaction\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "transactions", "accounts", "{accountId}" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/transactions/accounts/{accountId}"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "400",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    } ],
+    "name" : "/api/transactions/accounts/{accountId}"
+  }, {
+    "request" : {
+      "method" : "POST",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts" ],
+        "host" : [ "http://localhost:8084" ],
+        "raw" : "http://localhost:8084/api/accounts"
+      }
+    },
+    "response" : [ {
+      "originalRequest" : {
+        "method" : "POST",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "201",
+      "body" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "POST",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "500",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    }, {
+      "originalRequest" : {
+        "method" : "POST",
+        "header" : [ ],
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\"total\":\"<number>\",\"currency\":\"<string>\",\"id\":\"<long>\",\"accountNumber\":\"<string>\",\"nom\":\"<string>\",\"prenom\":\"<string>\"}"
+        },
+        "url" : {
+          "path" : [ "", "api", "accounts" ],
+          "host" : [ "http://localhost:8084" ],
+          "raw" : "http://localhost:8084/api/accounts"
+        }
+      },
+      "_postman_previewlanguage" : "json",
+      "name" : "400",
+      "body" : "{\"details\":\"<string>\",\"message\":\"<string>\"}"
+    } ],
+    "name" : "/api/accounts"
+  } ],
+  "info" : {
+    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "name" : "Generated API Collection"
+  }
+}

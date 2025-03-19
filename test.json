@@ -1,0 +1,255 @@
+{
+  "item" : [ {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : null
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts", "{id}" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/accounts/{id}"
+      }
+    },
+    "response" : [ {
+      "description" : "Compte trouvé",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"nom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"prenom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"accountNumber\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"total\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"currency\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "200"
+    }, {
+      "description" : "Erreur interne du serveur",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    }, {
+      "description" : "Compte non trouvé",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "404"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "request" : {
+      "method" : "PUT",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"nom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"prenom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"accountNumber\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"total\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"currency\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}"
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts", "{id}" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/accounts/{id}"
+      }
+    },
+    "response" : [ {
+      "description" : "Erreur interne du serveur",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    }, {
+      "description" : "Compte non trouvé",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "404"
+    }, {
+      "description" : "Compte mis à jour avec succès",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"nom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"prenom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"accountNumber\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"total\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"currency\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "200"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "request" : {
+      "method" : "DELETE",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : null
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts", "{id}" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/accounts/{id}"
+      }
+    },
+    "response" : [ {
+      "description" : "Erreur interne du serveur",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    }, {
+      "description" : "Compte non trouvé",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "404"
+    }, {
+      "description" : "Compte supprimé avec succès",
+      "body" : "No schema defined",
+      "status" : "204"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "request" : {
+      "method" : "POST",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"account\" : {\r\n      \"$ref\" : \"#/components/schemas/Account\"\r\n    },\r\n    \"dateTransaction\" : {\r\n      \"type\" : \"string\",\r\n      \"format\" : \"date-time\"\r\n    },\r\n    \"montant\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"type\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"description\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}"
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions", "accounts", "{accountId}" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/transactions/accounts/{accountId}"
+      }
+    },
+    "response" : [ {
+      "description" : "Requête incorrecte",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "400"
+    }, {
+      "description" : "Erreur serveur interne",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    }, {
+      "description" : "Transaction créée avec succès",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"account\" : {\r\n      \"$ref\" : \"#/components/schemas/Account\"\r\n    },\r\n    \"dateTransaction\" : {\r\n      \"type\" : \"string\",\r\n      \"format\" : \"date-time\"\r\n    },\r\n    \"montant\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"type\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"description\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "201"
+    } ],
+    "name" : "/api/transactions/accounts/{accountId}"
+  }, {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : null
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/accounts"
+      }
+    },
+    "response" : [ {
+      "description" : "Opération réussie",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"nom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"prenom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"accountNumber\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"total\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"currency\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "200"
+    }, {
+      "description" : "Erreur interne du serveur",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    }, {
+      "description" : "Requête invalide",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "400"
+    } ],
+    "name" : "/api/accounts"
+  }, {
+    "request" : {
+      "method" : "POST",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"nom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"prenom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"accountNumber\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"total\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"currency\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}"
+      },
+      "url" : {
+        "path" : [ "", "api", "accounts" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/accounts"
+      }
+    },
+    "response" : [ {
+      "description" : "Erreur interne du serveur",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    }, {
+      "description" : "Compte créé avec succès",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"nom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"prenom\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"accountNumber\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"total\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"currency\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "201"
+    }, {
+      "description" : "Requête invalide",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "400"
+    } ],
+    "name" : "/api/accounts"
+  }, {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : null
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/transactions"
+      }
+    },
+    "response" : [ {
+      "description" : "Opération réussie",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"account\" : {\r\n      \"$ref\" : \"#/components/schemas/Account\"\r\n    },\r\n    \"dateTransaction\" : {\r\n      \"type\" : \"string\",\r\n      \"format\" : \"date-time\"\r\n    },\r\n    \"montant\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"type\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"description\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "200"
+    }, {
+      "description" : "Erreur serveur interne",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    } ],
+    "name" : "/api/transactions"
+  }, {
+    "request" : {
+      "method" : "GET",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : null
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions", "{id}" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/transactions/{id}"
+      }
+    },
+    "response" : [ {
+      "description" : "Transaction non trouvée",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "404"
+    }, {
+      "description" : "Opération réussie",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"id\" : {\r\n      \"type\" : \"integer\",\r\n      \"format\" : \"int64\"\r\n    },\r\n    \"account\" : {\r\n      \"$ref\" : \"#/components/schemas/Account\"\r\n    },\r\n    \"dateTransaction\" : {\r\n      \"type\" : \"string\",\r\n      \"format\" : \"date-time\"\r\n    },\r\n    \"montant\" : {\r\n      \"type\" : \"number\"\r\n    },\r\n    \"type\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"description\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "200"
+    }, {
+      "description" : "Erreur serveur interne",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    } ],
+    "name" : "/api/transactions/{id}"
+  }, {
+    "request" : {
+      "method" : "DELETE",
+      "header" : [ ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : null
+      },
+      "url" : {
+        "path" : [ "", "api", "transactions", "{id}" ],
+        "host" : [ "{{base_url}}" ],
+        "raw" : "{{base_url}}/api/transactions/{id}"
+      }
+    },
+    "response" : [ {
+      "description" : "Transaction non trouvée",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "404"
+    }, {
+      "description" : "Transaction supprimée avec succès",
+      "body" : "No schema defined",
+      "status" : "204"
+    }, {
+      "description" : "Erreur serveur interne",
+      "body" : "{\r\n  \"type\" : \"object\",\r\n  \"properties\" : {\r\n    \"message\" : {\r\n      \"type\" : \"string\"\r\n    },\r\n    \"details\" : {\r\n      \"type\" : \"string\"\r\n    }\r\n  }\r\n}",
+      "status" : "500"
+    } ],
+    "name" : "/api/transactions/{id}"
+  } ],
+  "info" : {
+    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "name" : "Generated API Collection"
+  }
+}

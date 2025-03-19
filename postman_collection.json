@@ -1,0 +1,406 @@
+{
+  "item" : [ {
+    "item" : [ {
+      "request" : {
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "path" : [ "api", "accounts", ":id" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ {
+            "description" : "L'ID du compte bancaire à récupérer",
+            "key" : "id",
+            "value" : "3"
+          } ],
+          "raw" : "{{baseUrl}}/api/accounts/:id"
+        }
+      },
+      "response" : [ {
+        "code" : 404,
+        "name" : "Compte non trouvé",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{}",
+        "status" : "Not Found"
+      }, {
+        "code" : 200,
+        "name" : "Compte trouvé",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
+        "status" : "OK"
+      } ],
+      "name" : "Récupérer un compte bancaire par son ID"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "PUT",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "body" : {
+          "mode" : "raw",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          },
+          "raw" : "{\r\n  \"id\" : 3,\r\n  \"nom\" : \"TestString\",\r\n  \"prenom\" : \"TestString\",\r\n  \"accountNumber\" : \"TestString\",\r\n  \"total\" : 100,\r\n  \"currency\" : \"TestString\"\r\n}"
+        },
+        "url" : {
+          "path" : [ "api", "accounts", ":id" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ {
+            "description" : "L'ID du compte bancaire à mettre à jour",
+            "key" : "id",
+            "value" : "3"
+          } ],
+          "raw" : "{{baseUrl}}/api/accounts/:id"
+        }
+      },
+      "response" : [ {
+        "code" : 404,
+        "name" : "Compte non trouvé",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{}",
+        "status" : "Not Found"
+      }, {
+        "code" : 200,
+        "name" : "Compte mis à jour avec succès",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
+        "status" : "OK"
+      } ],
+      "name" : "Mettre à jour un compte bancaire existant"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "DELETE",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "path" : [ "api", "accounts", ":id" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ {
+            "description" : "L'ID du compte bancaire à supprimer",
+            "key" : "id",
+            "value" : "4"
+          } ],
+          "raw" : "{{baseUrl}}/api/accounts/:id"
+        }
+      },
+      "response" : [ {
+        "code" : 404,
+        "name" : "Compte non trouvé",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{}",
+        "status" : "Not Found"
+      }, {
+        "code" : 204,
+        "name" : "Compte supprimé avec succès",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{}",
+        "status" : "No Content"
+      } ],
+      "name" : "Supprimer un compte bancaire"
+    } ],
+    "name" : "/api/accounts/{id}"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "POST",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "body" : {
+          "mode" : "raw",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          },
+          "raw" : "{\r\n  \"id\" : 3,\r\n  \"dateTransaction\" : \"2023-10-01T00:00:00Z\",\r\n  \"montant\" : 100,\r\n  \"type\" : \"TestString\",\r\n  \"description\" : \"TestString\"\r\n}"
+        },
+        "url" : {
+          "path" : [ "api", "transactions", "accounts", ":accountId" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ {
+            "description" : "L'ID du compte pour lequel la transaction est effectuée",
+            "key" : "accountId",
+            "value" : "3"
+          } ],
+          "raw" : "{{baseUrl}}/api/transactions/accounts/:accountId"
+        }
+      },
+      "response" : [ {
+        "code" : 201,
+        "name" : "Transaction créée avec succès",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"account\" : {\r\n    \"id\" : \"<long>\",\r\n    \"nom\" : \"<string>\",\r\n    \"prenom\" : \"<string>\",\r\n    \"accountNumber\" : \"<string>\",\r\n    \"total\" : \"<number>\",\r\n    \"currency\" : \"<string>\"\r\n  },\r\n  \"dateTransaction\" : \"<dateTime>\",\r\n  \"montant\" : \"<number>\",\r\n  \"type\" : \"<string>\",\r\n  \"description\" : \"<string>\"\r\n}",
+        "status" : "Created"
+      }, {
+        "code" : 400,
+        "name" : "Requête incorrecte",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Bad Request"
+      } ],
+      "name" : "Créer une nouvelle transaction pour un compte spécifique"
+    } ],
+    "name" : "/api/transactions/accounts/{accountId}"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "path" : [ "api", "accounts" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ ],
+          "raw" : "{{baseUrl}}/api/accounts"
+        }
+      },
+      "response" : [ {
+        "code" : 400,
+        "name" : "Requête invalide",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Bad Request"
+      }, {
+        "code" : 200,
+        "name" : "Opération réussie",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
+        "status" : "OK"
+      } ],
+      "name" : "Récupérer tous les comptes bancaires"
+    } ],
+    "name" : "/api/accounts"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "POST",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "body" : {
+          "mode" : "raw",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          },
+          "raw" : "{\r\n  \"id\" : 3,\r\n  \"nom\" : \"TestString\",\r\n  \"prenom\" : \"TestString\",\r\n  \"accountNumber\" : \"TestString\",\r\n  \"total\" : 100,\r\n  \"currency\" : \"TestString\"\r\n}"
+        },
+        "url" : {
+          "path" : [ "api", "accounts" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ ],
+          "raw" : "{{baseUrl}}/api/accounts"
+        }
+      },
+      "response" : [ {
+        "code" : 400,
+        "name" : "Requête invalide",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Bad Request"
+      }, {
+        "code" : 201,
+        "name" : "Compte créé avec succès",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
+        "status" : "Created"
+      } ],
+      "name" : "Créer un nouveau compte bancaire"
+    } ],
+    "name" : "/api/accounts"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "path" : [ "api", "transactions" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ ],
+          "raw" : "{{baseUrl}}/api/transactions"
+        }
+      },
+      "response" : [ {
+        "code" : 400,
+        "name" : "Requête invalide",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Bad Request"
+      }, {
+        "code" : 200,
+        "name" : "Opération réussie",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"account\" : {\r\n    \"id\" : \"<long>\",\r\n    \"nom\" : \"<string>\",\r\n    \"prenom\" : \"<string>\",\r\n    \"accountNumber\" : \"<string>\",\r\n    \"total\" : \"<number>\",\r\n    \"currency\" : \"<string>\"\r\n  },\r\n  \"dateTransaction\" : \"<dateTime>\",\r\n  \"montant\" : \"<number>\",\r\n  \"type\" : \"<string>\",\r\n  \"description\" : \"<string>\"\r\n}",
+        "status" : "OK"
+      } ],
+      "name" : "Récupérer toutes les transactions"
+    } ],
+    "name" : "/api/transactions"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "path" : [ "api", "transactions", ":id" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ {
+            "description" : "L'ID de la transaction à récupérer",
+            "key" : "id",
+            "value" : "3"
+          } ],
+          "raw" : "{{baseUrl}}/api/transactions/:id"
+        }
+      },
+      "response" : [ {
+        "code" : 404,
+        "name" : "Transaction non trouvée",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{}",
+        "status" : "Not Found"
+      }, {
+        "code" : 200,
+        "name" : "Opération réussie",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"account\" : {\r\n    \"id\" : \"<long>\",\r\n    \"nom\" : \"<string>\",\r\n    \"prenom\" : \"<string>\",\r\n    \"accountNumber\" : \"<string>\",\r\n    \"total\" : \"<number>\",\r\n    \"currency\" : \"<string>\"\r\n  },\r\n  \"dateTransaction\" : \"<dateTime>\",\r\n  \"montant\" : \"<number>\",\r\n  \"type\" : \"<string>\",\r\n  \"description\" : \"<string>\"\r\n}",
+        "status" : "OK"
+      } ],
+      "name" : "Récupérer une transaction par son ID"
+    } ],
+    "name" : "/api/transactions/{id}"
+  }, {
+    "item" : [ {
+      "request" : {
+        "method" : "DELETE",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "path" : [ "api", "transactions", ":id" ],
+          "query" : [ ],
+          "host" : [ "{{baseUrl}}" ],
+          "variable" : [ {
+            "description" : "L'ID de la transaction à supprimer",
+            "key" : "id",
+            "value" : "4"
+          } ],
+          "raw" : "{{baseUrl}}/api/transactions/:id"
+        }
+      },
+      "response" : [ {
+        "code" : 204,
+        "name" : "Transaction supprimée avec succès",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{}",
+        "status" : "No Content"
+      }, {
+        "code" : 404,
+        "name" : "Transaction non trouvée",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "body" : "{}",
+        "status" : "Not Found"
+      } ],
+      "name" : "Supprimer une transaction"
+    } ],
+    "name" : "/api/transactions/{id}"
+  } ],
+  "variable" : [ {
+    "description" : "URL de base de l'API",
+    "key" : "baseUrl",
+    "value" : "http://localhost:8084"
+  } ],
+  "info" : {
+    "description" : "API pour la gestion des comptes bancaires et des transactions.",
+    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "name" : "Banking App API"
+  }
+}

@@ -1,30 +1,63 @@
 package com.example.api_tierces.controller;
 
+import com.example.api_tierces.model.Api;
 import com.example.api_tierces.service.ApiService;
+import com.example.api_tierces.service.UploadService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*; //définir les points d'entrée de l'API (GET, POST ...)
-import org.springframework.web.multipart.MultipartFile; //gérer les fichiers envoyés via des requêtes HTTP
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/apis")
 public class ApiController {
 
     @Autowired
     private ApiService apiService;
 
-    @PostMapping("/upload_lib_api")
-    public String uploadSwaggerFile(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return "Le fichier est vide.";
-        }
+    @Operation(summary = "Récupérer toutes les API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Opération réussie",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Api.class)))
+    })
+    @GetMapping
+    public List<Api> getAllApis() {
+        return apiService.getAllApis();
+    }
 
-        try {
-            String fileContent = new String(file.getBytes()); //getBytes :c'est une méthode de la classe MultipartFile,convertir le contenu du fichier en un tableau de bytes
-            return apiService.parseSwaggerFile(fileContent);
-        } catch (IOException e) {
-            return "Erreur lors du traitement du fichier : " + e.getMessage();
-        }
+    @Operation(summary = "Récupérer une API par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "API trouvée",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Api.class))),
+            @ApiResponse(responseCode = "404", description = "API non trouvée")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Api> getApiById(
+            @Parameter(description = "L'ID de l'API à récupérer", required = true) @PathVariable Long id) {
+        return apiService.getApiById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @Operation(summary = "Récupérer une API par son chemin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "API trouvée",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Api.class))),
+            @ApiResponse(responseCode = "404", description = "API non trouvée")
+    })
+    @GetMapping("/path/{path}")
+    public ResponseEntity<Api> getApiByPath(
+            @Parameter(description = "Le chemin de l'API à récupérer", required = true) @PathVariable String path) {
+        return apiService.getApiByPath(path)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
+

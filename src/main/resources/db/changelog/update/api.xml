@@ -65,4 +65,20 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="5" author="maram">
+        <createTable tableName="api_monitoring">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="path" type="VARCHAR(255)"/>
+            <column name="temps" type="DATETIME"/>
+            <column name="response_time" type="BIGINT"/>
+            <column name="status_code" type="INT"/>
+            <column name="error_message" type="VARCHAR(255)"/>
+            <column name="level" type="VARCHAR(255)"/>
+            <column name="metadata" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+
 </databaseChangeLog>
