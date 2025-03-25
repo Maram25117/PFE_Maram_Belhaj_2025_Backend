@@ -2,12 +2,14 @@ package com.example.api_tierces.controller;
 
 import com.example.api_tierces.model.Schema;
 import com.example.api_tierces.service.SchemaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Table Api-Schema")
 @RestController
 @RequestMapping("/api/schemas")
 public class SchemaController {

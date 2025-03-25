@@ -17,4 +17,5 @@ public interface ApiParametersRepository extends JpaRepository<ApiParameters, Lo
     List<ApiParameters> findByApiId(Long apiId);
     List<ApiParameters> findByApi(Api api);
     ApiParameters findByApiAndName(Api api, String name);
+    ApiParameters findByName(String name);
 }

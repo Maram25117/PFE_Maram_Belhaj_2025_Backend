@@ -1647,6 +1647,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -1660,7 +1662,8 @@ import java.util.ArrayList;
 
 import io.swagger.v3.oas.models.responses.ApiResponse;
 //Code hedhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa shihhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-@Service
+
+/*@Service
 public class FileUploadService implements UploadService {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadService.class);
@@ -1670,7 +1673,6 @@ public class FileUploadService implements UploadService {
     private final SchemaRepository schemaRepository;
     private final ApiParametersRepository apiParametersRepository;
 
-
     public FileUploadService(ApiRepository apiRepository,
                              ApiResponseRepository apiResponseRepository,
                              SchemaRepository schemaRepository,
@@ -1679,19 +1681,23 @@ public class FileUploadService implements UploadService {
         this.apiResponseRepository = apiResponseRepository;
         this.schemaRepository = schemaRepository;
         this.apiParametersRepository = apiParametersRepository;
-    }
+    }*/
 
-    @Transactional
-    public String parseSwaggerFileFromUrl(String fileContent) {
+    //@Transactional
+    /*@Override
+    public String parseSwaggerFile(String fileContent) {
         try {
-            return parseSwaggerFile(fileContent);
+            logger.info("Début du traitement du fichier Swagger");
+            // Ici, vous pouvez ajouter le traitement du contenu Swagger
+            return "Fichier Swagger traité avec succès";
         } catch (Exception e) {
             logger.error("Erreur lors du traitement du fichier Swagger : {}", e.getMessage());
             return "Erreur lors du traitement du fichier Swagger : " + e.getMessage();
         }
     }
+}*/
 
-    @Transactional
+   /* @Transactional
     public String parseSwaggerFile(String fileContent) {
         boolean hasChanges = false; // Indicateur de changement global
 
@@ -1833,6 +1839,17 @@ public class FileUploadService implements UploadService {
 
         for (com.example.api_tierces.model.Schema existingSchema : existingSchemas) {
             if (!currentSchemaNames.contains(existingSchema.getName())) {
+                // 1. Supprimer les réponses d'API qui référencent ce schéma
+                List<com.example.api_tierces.model.ApiResponse> responsesReferencingSchema = apiResponseRepository.findBySchema(existingSchema);
+                if (!responsesReferencingSchema.isEmpty()) {
+                    logChanges("Suppression des réponses référençant le schéma obsolète: " + existingSchema.getName());
+                    apiResponseRepository.deleteAll(responsesReferencingSchema); // This will work now with the correct type
+                }
+
+                // 2. Supprimer les paramètres d'API qui référencent ce schéma (si applicable)
+                // (Ajoutez cette logique si vos paramètres d'API référencent également des schémas)
+
+                // 3. Supprimer le schéma lui-même
                 logChanges("Suppression du schéma obsolète: " + existingSchema.getName());
                 schemaRepository.delete(existingSchema);
                 hasChanged = true;
@@ -2056,115 +2073,6 @@ public class FileUploadService implements UploadService {
     }
 
 
-    /*private boolean processResponses(OpenAPI openAPI, String path, Operation operation, String method, Api savedApi, boolean hasChanged) {
-
-        if (operation.getResponses() != null) {
-            Set<String> currentStatuses = new HashSet<>();
-
-            for (Map.Entry<String, io.swagger.v3.oas.models.responses.ApiResponse> entry : operation.getResponses().entrySet()) {
-                String status = entry.getKey();
-                io.swagger.v3.oas.models.responses.ApiResponse responseValue = entry.getValue();
-                currentStatuses.add(status);
-
-                com.example.api_tierces.model.ApiResponse existingResponse = apiResponseRepository.findByApiAndStatus(savedApi, status);
-                com.example.api_tierces.model.ApiResponse apiResponse;
-                boolean responseChanged = false;
-
-                if (existingResponse != null) {
-                    //Mettre à jour la réponse existante
-                    apiResponse = existingResponse;
-
-                    //Vérifier si les valeurs ont changé
-                    if (hasChanged(apiResponse.getDescription(), responseValue.getDescription())) {
-                        logChanges("Description de la réponse '" + status + "' de l'API '" + path + " (" + method + ")' modifiée de '" + apiResponse.getDescription() + "' à '" + responseValue.getDescription() + "'");
-                        apiResponse.setDescription(responseValue.getDescription());
-                        responseChanged = true;
-                    }
-
-
-                    String schemaNameRef = null;
-                    if (responseValue.getContent() != null && responseValue.getContent().containsKey("application/json")) {
-                        MediaType mediaType = responseValue.getContent().get("application/json");
-                        if(mediaType != null){
-                            io.swagger.v3.oas.models.media.Schema schema = mediaType.getSchema();
-                            if (schema != null) {
-                                schemaNameRef = extractSchemaRef(schema);
-                            }
-                        }
-
-                    }
-                    if(hasChanged(apiResponse.getName_schema(), schemaNameRef)){
-                        logChanges("Name Schema de la réponse '" + status + "' de l'API '" + path + " (" + method + ")' modifié de '" + apiResponse.getName_schema() + "' à '" + schemaNameRef + "'");
-                        apiResponse.setName_schema(schemaNameRef);
-                        responseChanged = true;
-                    }
-
-
-
-                    if (responseChanged) {
-                        try {
-                            apiResponseRepository.save(apiResponse);
-                            hasChanged = true;
-                        }catch (Exception e){
-                            logger.error("Erreur lors de la sauvegarde de la reponse : {}", e.getMessage());
-                        }
-
-                    }
-
-
-                } else {
-                    //Créer une nouvelle réponse
-                    apiResponse = new com.example.api_tierces.model.ApiResponse();
-                    apiResponse.setApi(savedApi);
-                    apiResponse.setStatus(status);
-                    apiResponse.setDescription(responseValue.getDescription());
-
-                    String schemaNameRef = null;
-                    if (responseValue.getContent() != null && responseValue.getContent().containsKey("application/json")) {
-                        MediaType mediaType = responseValue.getContent().get("application/json");
-                        if(mediaType != null){
-                            io.swagger.v3.oas.models.media.Schema schema = mediaType.getSchema();
-                            if (schema != null) {
-                                schemaNameRef = extractSchemaRef(schema);
-                            }
-                        }
-
-                    }
-
-                    apiResponse.setName_schema(schemaNameRef);
-
-                    logChanges("Ajout de la reponse '" + status + "' à l'API '" + path + " (" + method + ")'");
-                    try {
-                        apiResponseRepository.save(apiResponse);
-                        hasChanged = true;
-                    }catch (Exception e){
-                        logger.error("Erreur lors de la sauvegarde de la reponse : {}", e.getMessage());
-                    }
-
-                }
-
-
-            }
-
-
-            //Supprimer les réponses obsolètes
-            List<com.example.api_tierces.model.ApiResponse> existingResponses = apiResponseRepository.findByApi(savedApi);
-            for (com.example.api_tierces.model.ApiResponse existingResponse : existingResponses) {
-                if (!currentStatuses.contains(existingResponse.getStatus())) {
-                    logChanges("Suppression de la réponse obsolète '" + existingResponse.getStatus() + "' de l'API '" + path + " (" + method + ")'");
-                    try{
-                        apiResponseRepository.delete(existingResponse);
-                        hasChanged = true;
-                    }catch (Exception e){
-                        logger.error("Erreur lors de la suppression de la reponse : {}", e.getMessage());
-                    }
-
-                }
-            }
-        }
-
-        return hasChanged;
-    }*/
     private boolean processResponses(OpenAPI openAPI, String path, Operation operation, String method, Api savedApi, boolean hasChanged) {
         if (operation.getResponses() != null) {
             Set<String> currentStatuses = new HashSet<>();
@@ -2285,8 +2193,8 @@ public class FileUploadService implements UploadService {
         return hasChanged;
     }
 
-
-    private boolean deleteObsoleteApis(Set<String> currentPaths) {
+/*hedhi melowel commentaire*/
+  /*  private boolean deleteObsoleteApis(Set<String> currentPaths) {
         boolean hasChanged = false;
         List<Api> existingApis = apiRepository.findAll();
 
@@ -2304,7 +2212,40 @@ public class FileUploadService implements UploadService {
         }
 
         return hasChanged;
-    }
+    }*/
+ /* private boolean deleteObsoleteApis(Set<String> currentPaths) {
+      boolean hasChanged = false;
+      List<Api> existingApis = apiRepository.findAll();
+
+      for (Api existingApi : existingApis) {
+          if (!currentPaths.contains(existingApi.getPath())) {
+              // 1. Supprimer les paramètres d'API associés à cette API
+              List<ApiParameters> parametersReferencingApi = apiParametersRepository.findByApi(existingApi);
+              if (!parametersReferencingApi.isEmpty()) {
+                  logChanges("Suppression des paramètres référençant l'API obsolète: " + existingApi.getPath());
+                  apiParametersRepository.deleteAll(parametersReferencingApi);
+              }
+
+              // 2. Supprimer les réponses d'API associées à cette API
+              List<com.example.api_tierces.model.ApiResponse> responsesReferencingApi = apiResponseRepository.findByApi(existingApi);
+              if (!responsesReferencingApi.isEmpty()) {
+                  logChanges("Suppression des réponses référençant l'API obsolète: " + existingApi.getPath());
+                  apiResponseRepository.deleteAll(responsesReferencingApi);
+              }
+
+              // 3. Supprimer l'API elle-même
+              logChanges("Suppression de l'API obsolète: " + existingApi.getPath() + " (" + existingApi.getMethod() + ")");
+              try {
+                  apiRepository.delete(existingApi);
+                  hasChanged = true;
+              } catch (Exception e) {
+                  logger.error("Erreur lors de la suppression de l'API : {}", e.getMessage());
+              }
+          }
+      }
+
+      return hasChanged;
+  }
 
     private String extractRequestBodyContent(io.swagger.v3.oas.models.media.Schema schema, OpenAPI openAPI) {
         try {
@@ -2336,4 +2277,626 @@ public class FileUploadService implements UploadService {
     }
 
 
-}
+}*/
+
+import java.time.LocalDateTime;
+   @Service
+   public class FileUploadService implements UploadService {
+
+       private static final Logger logger = LoggerFactory.getLogger(FileUploadService.class);
+
+       private final ApiRepository apiRepository;
+       private final ApiResponseRepository apiResponseRepository;
+       private final SchemaRepository schemaRepository;
+       private final ApiParametersRepository apiParametersRepository;
+       private final ApiChangeRepository apiChangeRepository; // Injectez le repository ApiChange
+
+       public FileUploadService(ApiRepository apiRepository,
+                                ApiResponseRepository apiResponseRepository,
+                                SchemaRepository schemaRepository,
+                                ApiParametersRepository apiParametersRepository,
+                                ApiChangeRepository apiChangeRepository) {
+           this.apiRepository = apiRepository;
+           this.apiResponseRepository = apiResponseRepository;
+           this.schemaRepository = schemaRepository;
+           this.apiParametersRepository = apiParametersRepository;
+           this.apiChangeRepository = apiChangeRepository;
+       }
+
+       @Transactional
+       public String parseSwaggerFileFromUrl(String fileContent) {
+           try {
+               return parseSwaggerFile(fileContent);
+           } catch (Exception e) {
+               logger.error("Erreur lors du traitement du fichier Swagger : {}", e.getMessage());
+               return "Erreur lors du traitement du fichier Swagger : " + e.getMessage();
+           }
+       }
+
+       @Transactional
+       public String parseSwaggerFile(String fileContent) {
+           boolean hasChanges = false; // Indicateur de changement global
+
+           try {
+               OpenAPIV3Parser parser = new OpenAPIV3Parser();
+               OpenAPI openAPI = parser.readContents(fileContent, null, null).getOpenAPI();
+               String version = openAPI.getInfo().getVersion();
+
+               // Gestion des schémas
+               Map<String, io.swagger.v3.oas.models.media.Schema> schemas = openAPI.getComponents().getSchemas();
+               Set<String> currentSchemaNames = new HashSet<>();
+
+               if (schemas != null) {
+                   for (Map.Entry<String, io.swagger.v3.oas.models.media.Schema> entry : schemas.entrySet()) {
+                       String schemaName = entry.getKey();
+                       io.swagger.v3.oas.models.media.Schema schemaValue = entry.getValue();
+                       if (saveSchema(schemaName, schemaValue, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                       currentSchemaNames.add(schemaName);
+                   }
+               }
+
+               // Supprimer les schémas obsolètes
+               if (deleteObsoleteSchemas(currentSchemaNames)) {
+                   hasChanges = true; // Changement détecté
+               }
+
+               // Gestion des chemins (API)
+               Map<String, PathItem> paths = openAPI.getPaths();
+               Set<String> currentPaths = new HashSet<>();
+
+               if (paths != null) {
+                   for (Map.Entry<String, PathItem> pathEntry : paths.entrySet()) {
+                       String pathName = pathEntry.getKey();
+                       PathItem pathValue = pathEntry.getValue();
+
+                       currentPaths.add(pathName);
+
+                       if (pathValue.getGet() != null && processOperation(pathName, pathValue.getGet(), "GET", version, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                       if (pathValue.getPost() != null && processOperation(pathName, pathValue.getPost(), "POST", version, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                       if (pathValue.getPut() != null && processOperation(pathName, pathValue.getPut(), "PUT", version, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                       if (pathValue.getDelete() != null && processOperation(pathName, pathValue.getDelete(), "DELETE", version, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                       if (pathValue.getOptions() != null && processOperation(pathName, pathValue.getOptions(), "OPTIONS", version, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                       if (pathValue.getHead() != null && processOperation(pathName, pathValue.getHead(), "HEAD", version, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                       if (pathValue.getTrace() != null && processOperation(pathName, pathValue.getTrace(), "TRACE", version, openAPI)) {
+                           hasChanges = true; // Changement détecté
+                       }
+                   }
+               }
+
+               // Supprimer les API obsolètes
+               if (deleteObsoleteApis(currentPaths)) {
+                   hasChanges = true; // Changement détecté
+               }
+
+
+               // Afficher le message en fonction de hasChanges
+               if (hasChanges) {
+                   logChanges("Des changements ont été détectés et enregistrés.");
+                   saveApiChange("oui"); // Enregistre "oui" si des changements ont été détectés
+               } else {
+                   logChanges("Aucun changement réalisé.");
+                   saveApiChange("non"); // Enregistre "non" si aucun changement n'a été détecté
+               }
+
+               return "Fichier Swagger analysé et enregistré avec succès !";
+           } catch (Exception e) {
+               logger.error("Erreur lors du traitement du fichier : {}", e.getMessage());
+               return "Erreur lors du traitement du fichier : " + e.getMessage();
+           }
+       }
+
+       private void saveApiChange(String changement) {
+           // Recherche le dernier enregistrement dans la table
+           List<ApiChange> existingChanges = apiChangeRepository.findAll();
+
+           // Si la table est vide, insère un nouvel enregistrement
+           if (existingChanges.isEmpty()) {
+               ApiChange apiChange = new ApiChange();
+               apiChange.setChangement(changement);
+               apiChange.setTemps(LocalDateTime.now());
+               apiChangeRepository.save(apiChange);
+           } else {
+               // Si la table n'est pas vide, met à jour le dernier enregistrement
+               ApiChange apiChangeToUpdate = existingChanges.get(0); // On prend le dernier, pas forcement l'id = 1
+               apiChangeToUpdate.setChangement(changement);
+               apiChangeToUpdate.setTemps(LocalDateTime.now());
+               apiChangeRepository.save(apiChangeToUpdate);
+           }
+       }
+
+
+
+       private void logChanges(String message) {
+           logger.info(message);
+       }
+
+       private boolean hasChanged(Object oldValue, Object newValue) {
+           if (oldValue == null && newValue == null) {
+               return false;
+           }
+           if (oldValue == null || newValue == null) {
+               return true;
+           }
+           return !oldValue.equals(newValue);
+       }
+
+       private boolean saveSchema(String name, io.swagger.v3.oas.models.media.Schema schema, OpenAPI openAPI) {
+           List<com.example.api_tierces.model.Schema> existingSchemas = schemaRepository.findByName(name);
+           com.example.api_tierces.model.Schema schemaToSave;
+           boolean hasChanged = false;
+
+           if (existingSchemas != null && !existingSchemas.isEmpty()) {
+               // Mettre à jour le schéma existant
+               schemaToSave = existingSchemas.get(0);
+
+               // Vérifier si les valeurs ont changé
+               if (hasChanged(schemaToSave.getType(), schema.getType())) {
+                   logChanges("Type du schéma '" + name + "' modifié de '" + schemaToSave.getType() + "' à '" + schema.getType() + "'");
+                   schemaToSave.setType(schema.getType());
+                   hasChanged = true;
+               }
+
+               String newSchemaContent = Json.pretty(schema);
+               if (hasChanged(schemaToSave.getSchemas(), newSchemaContent)) {
+                   logChanges("Contenu du schéma '" + name + "' modifié.");
+                   schemaToSave.setSchemas(newSchemaContent);
+                   hasChanged = true;
+               }
+
+               if (hasChanged) {
+                   schemaRepository.save(schemaToSave);
+               }
+           } else {
+               // Créer un nouveau schéma
+               schemaToSave = new com.example.api_tierces.model.Schema();
+               schemaToSave.setName(name);
+               schemaToSave.setType(schema.getType());
+               schemaToSave.setSchemas(Json.pretty(schema));
+               logChanges("Ajout d'un nouveau schéma: " + name);
+               schemaRepository.save(schemaToSave);
+               hasChanged = true;
+           }
+
+           return hasChanged;
+       }
+
+       private boolean deleteObsoleteSchemas(Set<String> currentSchemaNames) {
+           boolean hasChanged = false;
+           List<com.example.api_tierces.model.Schema> existingSchemas = schemaRepository.findAll();
+
+           for (com.example.api_tierces.model.Schema existingSchema : existingSchemas) {
+               if (!currentSchemaNames.contains(existingSchema.getName())) {
+                   // 1. Supprimer les réponses d'API qui référencent ce schéma
+                   List<com.example.api_tierces.model.ApiResponse> responsesReferencingSchema = apiResponseRepository.findBySchema(existingSchema);
+                   if (!responsesReferencingSchema.isEmpty()) {
+                       logChanges("Suppression des réponses référençant le schéma obsolète: " + existingSchema.getName());
+                       apiResponseRepository.deleteAll(responsesReferencingSchema); // This will work now with the correct type
+                   }
+
+                   // 2. Supprimer les paramètres d'API qui référencent ce schéma (si applicable)
+                   // (Ajoutez cette logique si vos paramètres d'API référencent également des schémas)
+
+                   // 3. Supprimer le schéma lui-même
+                   logChanges("Suppression du schéma obsolète: " + existingSchema.getName());
+                   schemaRepository.delete(existingSchema);
+                   hasChanged = true;
+               }
+           }
+
+           return hasChanged;
+       }
+
+       private boolean processOperation(String path, Operation operation, String method, String version, OpenAPI openAPI) {
+           boolean hasChanged = false;
+
+           if (operation != null) {
+               Api existingApi = apiRepository.findByPathAndMethod(path, method);
+               Api api;
+
+               if (existingApi != null) {
+                   // Mettre à jour l'API existante
+                   api = existingApi;
+
+                   // Vérifier si les valeurs ont changé
+                   String newDescription = operation.getDescription() != null ? operation.getDescription() : operation.getSummary();
+                   if (hasChanged(api.getDescription(), newDescription)) {
+                       logChanges("Description de l'API '" + path + " (" + method + ")' modifiée de '" + api.getDescription() + "' à '" + newDescription + "'");
+                       api.setDescription(newDescription);
+                       hasChanged = true;
+                   }
+                   if (hasChanged(api.getVersion(), version)) {
+                       logChanges("Version de l'API '" + path + " (" + method + ")' modifiée de '" + api.getVersion() + "' à '" + version + "'");
+                       api.setVersion(version);
+                       hasChanged = true;
+                   }
+
+                   // Gestion du request body
+                   RequestBody requestBody = operation.getRequestBody();
+                   if (requestBody != null) {
+                       Content content = requestBody.getContent();
+                       if (content != null && content.containsKey("application/json")) {
+                           MediaType mediaType = content.get("application/json");
+                           io.swagger.v3.oas.models.media.Schema schema = mediaType.getSchema();
+
+                           if (schema != null) {
+                               // Extraire le contenu du request body
+                               String requestBodyContent = extractRequestBodyContent(schema, openAPI);
+                               if (hasChanged(api.getRequest_body(), requestBodyContent)) {
+                                   logChanges("Request body de l'API '" + path + " (" + method + ")' modifié.");
+                                   api.setRequest_body(requestBodyContent);
+                                   hasChanged = true;
+                               }
+
+
+                               // Extraire et enregistrer le nom du schéma
+                               String schemaName = extractSchemaRef(schema);
+                               if (schemaName != null && !schemaName.isEmpty()) {
+                                   if (hasChanged(api.getSchema_name(), schemaName)) {
+                                       logChanges("Schema name de l'API '" + path + " (" + method + ")' modifié de '" + api.getSchema_name() + "' à '" + schemaName + "'");
+                                       api.setSchema_name(schemaName);
+                                       hasChanged = true;
+                                   }
+
+                               }
+                           }
+                       }
+                   }
+
+                   if (hasChanged) {
+                       apiRepository.save(api);
+                   }
+               } else {
+                   // Créer une nouvelle API
+                   api = new Api();
+                   api.setPath(path);
+                   api.setMethod(method);
+                   api.setDescription(operation.getDescription() != null ? operation.getDescription() : operation.getSummary());
+                   api.setVersion(version);
+
+                   // Gestion du request body
+                   RequestBody requestBody = operation.getRequestBody();
+                   if (requestBody != null) {
+                       Content content = requestBody.getContent();
+                       if (content != null && content.containsKey("application/json")) {
+                           MediaType mediaType = content.get("application/json");
+                           io.swagger.v3.oas.models.media.Schema schema = mediaType.getSchema();
+
+                           if (schema != null) {
+                               // Extraire le contenu du request body
+                               String requestBodyContent = extractRequestBodyContent(schema, openAPI);
+                               api.setRequest_body(requestBodyContent);
+
+                               // Extraire et enregistrer le nom du schéma
+                               String schemaName = extractSchemaRef(schema);
+                               if (schemaName != null && !schemaName.isEmpty()) {
+                                   api.setSchema_name(schemaName);
+                               }
+                           }
+                       }
+                   }
+                   logChanges("Ajout d'une nouvelle API: " + path + " (" + method + ")");
+                   apiRepository.save(api);
+                   hasChanged = true;
+               }
+
+               //Sauvegarder l'API
+               Api savedApi = apiRepository.save(api);
+
+               // Gestion des paramètres
+               hasChanged = processParameters(openAPI, path, operation, method, savedApi, hasChanged);
+
+               // Gestion des réponses
+               hasChanged = processResponses(openAPI, path, operation, method, savedApi, hasChanged);
+
+
+           }
+
+           return hasChanged;
+       }
+
+       private boolean processParameters(OpenAPI openAPI, String path, Operation operation, String method, Api savedApi, boolean hasChanged) {
+           List<Parameter> parameters = operation.getParameters();
+           Set<String> currentParameterNames = new HashSet<>();
+           if (parameters != null) {
+               for (Parameter parameter : parameters) {
+                   currentParameterNames.add(parameter.getName());
+                   ApiParameters existingParameter = apiParametersRepository.findByApiAndName(savedApi, parameter.getName());
+
+                   ApiParameters apiParameters;
+                   boolean parameterChanged = false;
+
+                   if (existingParameter != null) {
+                       // Mettre à jour le paramètre existant
+                       apiParameters = existingParameter;
+
+                       // Vérifier si les valeurs ont changé
+                       if (hasChanged(apiParameters.getTypein(), parameter.getIn() != null ? parameter.getIn().toString() : null)) {
+                           logChanges("Type du paramètre '" + parameter.getName() + "' de l'API '" + path + " (" + method + ")' modifié de '" + apiParameters.getTypein() + "' à '" + (parameter.getIn() != null ? parameter.getIn().toString() : null) + "'");
+                           apiParameters.setTypein(parameter.getIn() != null ? parameter.getIn().toString() : null);
+                           parameterChanged = true;
+                       }
+                       if (hasChanged(apiParameters.getExample(), parameter.getExample() != null ? parameter.getExample().toString() : "Aucun exemple disponible")) {
+                           logChanges("Example du paramètre '" + parameter.getName() + "' de l'API '" + path + " (" + method + ")' modifié de '" + apiParameters.getExample() + "' à '" + (parameter.getExample() != null ? parameter.getExample().toString() : "Aucun exemple disponible") + "'");
+                           apiParameters.setExample(parameter.getExample() != null ? parameter.getExample().toString() : "Aucun exemple disponible");
+                           parameterChanged = true;
+                       }
+                       if (hasChanged(apiParameters.getData_type(), parameter.getSchema() != null ? parameter.getSchema().getType() : null)) {
+                           logChanges("Data type du paramètre '" + parameter.getName() + "' de l'API '" + path + " (" + method + ")' modifié de '" + apiParameters.getData_type() + "' à '" + (parameter.getSchema() != null ? parameter.getSchema().getType() : null) + "'");
+                           apiParameters.setData_type(parameter.getSchema() != null ? parameter.getSchema().getType() : null);
+                           parameterChanged = true;
+                       }
+                       if (hasChanged(apiParameters.getDescription(), parameter.getDescription())) {
+                           logChanges("Description du paramètre '" + parameter.getName() + "' de l'API '" + path + " (" + method + ")' modifiée de '" + apiParameters.getDescription() + "' à '" + parameter.getDescription() + "'");
+                           apiParameters.setDescription(parameter.getDescription());
+                           parameterChanged = true;
+                       }
+                       if (hasChanged(apiParameters.getRequired(), parameter.getRequired())) {
+                           logChanges("Required du paramètre '" + parameter.getName() + "' de l'API '" + path + " (" + method + ")' modifié de '" + apiParameters.getRequired() + "' à '" + parameter.getRequired() + "'");
+                           apiParameters.setRequired(parameter.getRequired());
+                           parameterChanged = true;
+                       }
+
+                       if (parameterChanged) {
+                           try {
+                               apiParametersRepository.save(apiParameters);
+                               hasChanged = true;
+                           }catch (Exception e){
+                               logger.error("Erreur lors de la sauvegarde du parametre : {}", e.getMessage());
+                           }
+
+                       }
+
+
+                   } else {
+                       // Créer un nouveau paramètre
+                       apiParameters = new ApiParameters();
+                       apiParameters.setApi(savedApi);
+                       apiParameters.setName(parameter.getName());
+                       if (parameter.getIn() != null) {
+                           apiParameters.setTypein(parameter.getIn().toString());
+                       }
+                       if (parameter.getExample() != null) {
+                           apiParameters.setExample(parameter.getExample().toString());
+                       } else {
+                           apiParameters.setExample("Aucun exemple disponible");
+                       }
+                       if (parameter.getSchema() != null) {
+                           apiParameters.setData_type(parameter.getSchema().getType());
+                       }
+                       if (parameter.getDescription() != null) {
+                           apiParameters.setDescription(parameter.getDescription());
+                       }
+                       apiParameters.setRequired(parameter.getRequired());
+                       logChanges("Ajout du paramètre '" + parameter.getName() + "' à l'API '" + path + " (" + method + ")'");
+                       try {
+                           apiParametersRepository.save(apiParameters);
+                           hasChanged = true;
+                       }catch (Exception e){
+                           logger.error("Erreur lors de la sauvegarde du parametre : {}", e.getMessage());
+                       }
+
+                   }
+
+
+               }
+           }
+
+           //Supprimer les parametres obsolètes
+           List<ApiParameters> existingParameters = apiParametersRepository.findByApi(savedApi);
+           for (ApiParameters existingParameter : existingParameters) {
+               if (!currentParameterNames.contains(existingParameter.getName())) {
+                   logChanges("Suppression du paramètre obsolète '" + existingParameter.getName() + "' de l'API '" + path + " (" + method + ")'");
+                   try{
+                       apiParametersRepository.delete(existingParameter);
+                       hasChanged = true;
+                   }catch (Exception e){
+                       logger.error("Erreur lors de la suppression du parametre : {}", e.getMessage());
+                   }
+
+
+               }
+           }
+           return hasChanged;
+       }
+
+
+       private boolean processResponses(OpenAPI openAPI, String path, Operation operation, String method, Api savedApi, boolean hasChanged) {
+           if (operation.getResponses() != null) {
+               Set<String> currentStatuses = new HashSet<>();
+
+               for (Map.Entry<String, io.swagger.v3.oas.models.responses.ApiResponse> entry : operation.getResponses().entrySet()) {
+                   String status = entry.getKey();
+                   io.swagger.v3.oas.models.responses.ApiResponse responseValue = entry.getValue();
+                   currentStatuses.add(status);
+
+                   com.example.api_tierces.model.ApiResponse existingResponse = apiResponseRepository.findByApiAndStatus(savedApi, status);
+                   com.example.api_tierces.model.ApiResponse apiResponse;
+                   boolean responseChanged = false;
+
+                   if (existingResponse != null) {
+                       // Mettre à jour la réponse existante
+                       apiResponse = existingResponse;
+
+                       // Vérifier si les valeurs ont changé
+                       if (hasChanged(apiResponse.getDescription(), responseValue.getDescription())) {
+                           logChanges("Description de la réponse '" + status + "' de l'API '" + path + " (" + method + ")' modifiée de '" + apiResponse.getDescription() + "' à '" + responseValue.getDescription() + "'");
+                           apiResponse.setDescription(responseValue.getDescription());
+                           responseChanged = true;
+                       }
+
+                       // Extraire le nom du schéma et récupérer l'entité Schema correspondante
+                       String schemaNameRef = null;
+                       Schema schemaEntity = null;
+                       if (responseValue.getContent() != null && responseValue.getContent().containsKey("application/json")) {
+                           MediaType mediaType = responseValue.getContent().get("application/json");
+                           if (mediaType != null) {
+                               io.swagger.v3.oas.models.media.Schema schema = mediaType.getSchema();
+                               if (schema != null) {
+                                   schemaNameRef = extractSchemaRef(schema);
+                                   if (schemaNameRef != null) {
+                                       // Récupérer le schéma correspondant à partir de la base de données
+                                       schemaEntity = schemaRepository.findByName(schemaNameRef).stream().findFirst().orElse(null);
+                                       if (schemaEntity == null) {
+                                           logger.warn("Le schéma '{}' n'existe pas dans la base de données.", schemaNameRef);
+                                       }
+                                   }
+                               }
+                           }
+                       }
+
+                       // Mettre à jour le nom du schéma et la référence au schéma
+                       if (hasChanged(apiResponse.getName_schema(), schemaNameRef)) {
+                           logChanges("Name Schema de la réponse '" + status + "' de l'API '" + path + " (" + method + ")' modifié de '" + apiResponse.getName_schema() + "' à '" + schemaNameRef + "'");
+                           apiResponse.setName_schema(schemaNameRef);
+                           apiResponse.setSchema(schemaEntity); // Lier l'entité Schema
+                           responseChanged = true;
+                       }
+
+                       if (responseChanged) {
+                           try {
+                               apiResponseRepository.save(apiResponse);
+                               hasChanged = true;
+                           } catch (Exception e) {
+                               logger.error("Erreur lors de la sauvegarde de la réponse : {}", e.getMessage());
+                           }
+                       }
+
+                   } else {
+                       // Créer une nouvelle réponse
+                       apiResponse = new com.example.api_tierces.model.ApiResponse();
+                       apiResponse.setApi(savedApi);
+                       apiResponse.setStatus(status);
+                       apiResponse.setDescription(responseValue.getDescription());
+
+                       // Extraire le nom du schéma et récupérer l'entité Schema correspondante
+                       String schemaNameRef = null;
+                       Schema schemaEntity = null;
+                       if (responseValue.getContent() != null && responseValue.getContent().containsKey("application/json")) {
+                           MediaType mediaType = responseValue.getContent().get("application/json");
+                           if (mediaType != null) {
+                               io.swagger.v3.oas.models.media.Schema schema = mediaType.getSchema();
+                               if (schema != null) {
+                                   schemaNameRef = extractSchemaRef(schema);
+                                   if (schemaNameRef != null) {
+                                       // Récupérer le schéma correspondant à partir de la base de données
+                                       schemaEntity = schemaRepository.findByName(schemaNameRef).stream().findFirst().orElse(null);
+                                       if (schemaEntity == null) {
+                                           logger.warn("Le schéma '{}' n'existe pas dans la base de données.", schemaNameRef);
+                                       }
+                                   }
+                               }
+                           }
+                       }
+
+                       // Lier le schéma à la réponse
+                       apiResponse.setName_schema(schemaNameRef);
+                       apiResponse.setSchema(schemaEntity); // Lier l'entité Schema
+
+                       logChanges("Ajout de la réponse '" + status + "' à l'API '" + path + " (" + method + ")'");
+                       try {
+                           apiResponseRepository.save(apiResponse);
+                           hasChanged = true;
+                       } catch (Exception e) {
+                           logger.error("Erreur lors de la sauvegarde de la réponse : {}", e.getMessage());
+                       }
+                   }
+               }
+
+               // Supprimer les réponses obsolètes
+               List<com.example.api_tierces.model.ApiResponse> existingResponses = apiResponseRepository.findByApi(savedApi);
+               for (com.example.api_tierces.model.ApiResponse existingResponse : existingResponses) {
+                   if (!currentStatuses.contains(existingResponse.getStatus())) {
+                       logChanges("Suppression de la réponse obsolète '" + existingResponse.getStatus() + "' de l'API '" + path + " (" + method + ")'");
+                       try {
+                           apiResponseRepository.delete(existingResponse);
+                           hasChanged = true;
+                       } catch (Exception e) {
+                           logger.error("Erreur lors de la suppression de la réponse : {}", e.getMessage());
+                       }
+                   }
+               }
+           }
+
+           return hasChanged;
+       }
+
+
+       private boolean deleteObsoleteApis(Set<String> currentPaths) {
+           boolean hasChanged = false;
+           List<Api> existingApis = apiRepository.findAll();
+
+           for (Api existingApi : existingApis) {
+               if (!currentPaths.contains(existingApi.getPath())) {
+                   // 1. Supprimer les paramètres d'API associés à cette API
+                   List<ApiParameters> parametersReferencingApi = apiParametersRepository.findByApi(existingApi);
+                   if (!parametersReferencingApi.isEmpty()) {
+                       logChanges("Suppression des paramètres référençant l'API obsolète: " + existingApi.getPath());
+                       apiParametersRepository.deleteAll(parametersReferencingApi);
+                   }
+
+                   // 2. Supprimer les réponses d'API associées à cette API
+                   List<com.example.api_tierces.model.ApiResponse> responsesReferencingApi = apiResponseRepository.findByApi(existingApi);
+                   if (!responsesReferencingApi.isEmpty()) {
+                       logChanges("Suppression des réponses référençant l'API obsolète: " + existingApi.getPath());
+                       apiResponseRepository.deleteAll(responsesReferencingApi);
+                   }
+
+                   // 3. Supprimer l'API elle-même
+                   logChanges("Suppression de l'API obsolète: " + existingApi.getPath() + " (" + existingApi.getMethod() + ")");
+                   try {
+                       apiRepository.delete(existingApi);
+                       hasChanged = true;
+                   } catch (Exception e) {
+                       logger.error("Erreur lors de la suppression de l'API : {}", e.getMessage());
+                   }
+               }
+           }
+
+           return hasChanged;
+       }
+
+       private String extractRequestBodyContent(io.swagger.v3.oas.models.media.Schema schema, OpenAPI openAPI) {
+           try {
+               if (schema.get$ref() != null) {
+                   String ref = schema.get$ref();
+                   String refName = ref.replace("#/components/schemas/", "");
+                   Map<String, io.swagger.v3.oas.models.media.Schema> schemas = openAPI.getComponents().getSchemas();
+
+                   if (schemas != null && schemas.containsKey(refName)) {
+                       io.swagger.v3.oas.models.media.Schema resolvedSchema = schemas.get(refName);
+                       return Json.pretty(resolvedSchema);
+                   } else {
+                       return "Schema reference not found: " + ref;
+                   }
+               } else {
+                   return Json.pretty(schema);
+               }
+           } catch (Exception e) {
+               logger.error("Erreur lors de la sérialisation du schéma : {}", e.getMessage());
+               return "Erreur de sérialisation";
+           }
+       }
+
+       private String extractSchemaRef(io.swagger.v3.oas.models.media.Schema schema) {
+           if (schema.get$ref() != null) {
+               return schema.get$ref().replace("#/components/schemas/", "");
+           }
+           return null;
+       }
+
+
+   }

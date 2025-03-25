@@ -4,8 +4,8 @@
       "request" : {
         "method" : "GET",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "url" : {
           "path" : [ "api", "accounts", ":id" ],
@@ -13,32 +13,39 @@
           "host" : [ "{{baseUrl}}" ],
           "variable" : [ {
             "description" : "L'ID du compte bancaire à récupérer",
-            "key" : "id",
-            "value" : "3"
+            "value" : "3",
+            "key" : "id"
           } ],
           "raw" : "{{baseUrl}}/api/accounts/:id"
         }
       },
       "response" : [ {
-        "code" : 404,
-        "name" : "Compte non trouvé",
-        "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
-        } ],
-        "body" : "{}",
-        "status" : "Not Found"
-      }, {
         "code" : 200,
         "name" : "Compte trouvé",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
         "status" : "OK"
+      }, {
+        "code" : 404,
+        "name" : "Compte non trouvé",
+        "header" : [ {
+          "value" : "application/json",
+          "key" : "Content-Type"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Not Found"
       } ],
-      "name" : "Récupérer un compte bancaire par son ID"
+      "name" : "Récupérer un compte bancaire par son ID",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([200, 404]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 404\", function () {\n    if (pm.response.code === 404) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 200\", function () {\n    if (pm.response.code === 200) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"id\");\n                pm.expect(item).to.have.property(\"nom\");\n                pm.expect(item).to.have.property(\"prenom\");\n                pm.expect(item).to.have.property(\"accountNumber\");\n                pm.expect(item).to.have.property(\"total\");\n                pm.expect(item).to.have.property(\"currency\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"id\");\n            pm.expect(jsonResponse).to.have.property(\"nom\");\n            pm.expect(jsonResponse).to.have.property(\"prenom\");\n            pm.expect(jsonResponse).to.have.property(\"accountNumber\");\n            pm.expect(jsonResponse).to.have.property(\"total\");\n            pm.expect(jsonResponse).to.have.property(\"currency\");\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/accounts/{id}"
   }, {
@@ -46,8 +53,8 @@
       "request" : {
         "method" : "PUT",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "body" : {
           "mode" : "raw",
@@ -64,32 +71,39 @@
           "host" : [ "{{baseUrl}}" ],
           "variable" : [ {
             "description" : "L'ID du compte bancaire à mettre à jour",
-            "key" : "id",
-            "value" : "3"
+            "value" : "3",
+            "key" : "id"
           } ],
           "raw" : "{{baseUrl}}/api/accounts/:id"
         }
       },
       "response" : [ {
-        "code" : 404,
-        "name" : "Compte non trouvé",
-        "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
-        } ],
-        "body" : "{}",
-        "status" : "Not Found"
-      }, {
         "code" : 200,
         "name" : "Compte mis à jour avec succès",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
         "status" : "OK"
+      }, {
+        "code" : 404,
+        "name" : "Compte non trouvé",
+        "header" : [ {
+          "value" : "application/json",
+          "key" : "Content-Type"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Not Found"
       } ],
-      "name" : "Mettre à jour un compte bancaire existant"
+      "name" : "Mettre à jour un compte bancaire existant",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([200, 404]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 404\", function () {\n    if (pm.response.code === 404) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 200\", function () {\n    if (pm.response.code === 200) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"id\");\n                pm.expect(item).to.have.property(\"nom\");\n                pm.expect(item).to.have.property(\"prenom\");\n                pm.expect(item).to.have.property(\"accountNumber\");\n                pm.expect(item).to.have.property(\"total\");\n                pm.expect(item).to.have.property(\"currency\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"id\");\n            pm.expect(jsonResponse).to.have.property(\"nom\");\n            pm.expect(jsonResponse).to.have.property(\"prenom\");\n            pm.expect(jsonResponse).to.have.property(\"accountNumber\");\n            pm.expect(jsonResponse).to.have.property(\"total\");\n            pm.expect(jsonResponse).to.have.property(\"currency\");\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/accounts/{id}"
   }, {
@@ -97,8 +111,8 @@
       "request" : {
         "method" : "DELETE",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "url" : {
           "path" : [ "api", "accounts", ":id" ],
@@ -106,32 +120,39 @@
           "host" : [ "{{baseUrl}}" ],
           "variable" : [ {
             "description" : "L'ID du compte bancaire à supprimer",
-            "key" : "id",
-            "value" : "4"
+            "value" : "4",
+            "key" : "id"
           } ],
           "raw" : "{{baseUrl}}/api/accounts/:id"
         }
       },
       "response" : [ {
-        "code" : 404,
-        "name" : "Compte non trouvé",
-        "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
-        } ],
-        "body" : "{}",
-        "status" : "Not Found"
-      }, {
         "code" : 204,
         "name" : "Compte supprimé avec succès",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{}",
         "status" : "No Content"
+      }, {
+        "code" : 404,
+        "name" : "Compte non trouvé",
+        "header" : [ {
+          "value" : "application/json",
+          "key" : "Content-Type"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Not Found"
       } ],
-      "name" : "Supprimer un compte bancaire"
+      "name" : "Supprimer un compte bancaire",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([204, 404]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 404\", function () {\n    if (pm.response.code === 404) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 204\", function () {\n    if (pm.response.code === 204) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n            });\n        } else {\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/accounts/{id}"
   }, {
@@ -139,8 +160,8 @@
       "request" : {
         "method" : "POST",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "body" : {
           "mode" : "raw",
@@ -157,32 +178,39 @@
           "host" : [ "{{baseUrl}}" ],
           "variable" : [ {
             "description" : "L'ID du compte pour lequel la transaction est effectuée",
-            "key" : "accountId",
-            "value" : "3"
+            "value" : "3",
+            "key" : "accountId"
           } ],
           "raw" : "{{baseUrl}}/api/transactions/accounts/:accountId"
         }
       },
       "response" : [ {
-        "code" : 201,
-        "name" : "Transaction créée avec succès",
-        "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
-        } ],
-        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"account\" : {\r\n    \"id\" : \"<long>\",\r\n    \"nom\" : \"<string>\",\r\n    \"prenom\" : \"<string>\",\r\n    \"accountNumber\" : \"<string>\",\r\n    \"total\" : \"<number>\",\r\n    \"currency\" : \"<string>\"\r\n  },\r\n  \"dateTransaction\" : \"<dateTime>\",\r\n  \"montant\" : \"<number>\",\r\n  \"type\" : \"<string>\",\r\n  \"description\" : \"<string>\"\r\n}",
-        "status" : "Created"
-      }, {
         "code" : 400,
         "name" : "Requête incorrecte",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
         "status" : "Bad Request"
+      }, {
+        "code" : 201,
+        "name" : "Transaction créée avec succès",
+        "header" : [ {
+          "value" : "application/json",
+          "key" : "Content-Type"
+        } ],
+        "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"account\" : {\r\n    \"id\" : \"<long>\",\r\n    \"nom\" : \"<string>\",\r\n    \"prenom\" : \"<string>\",\r\n    \"accountNumber\" : \"<string>\",\r\n    \"total\" : \"<number>\",\r\n    \"currency\" : \"<string>\"\r\n  },\r\n  \"dateTransaction\" : \"<dateTime>\",\r\n  \"montant\" : \"<number>\",\r\n  \"type\" : \"<string>\",\r\n  \"description\" : \"<string>\"\r\n}",
+        "status" : "Created"
       } ],
-      "name" : "Créer une nouvelle transaction pour un compte spécifique"
+      "name" : "Créer une nouvelle transaction pour un compte spécifique",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([400, 201]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 400\", function () {\n    if (pm.response.code === 400) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 201\", function () {\n    if (pm.response.code === 201) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"id\");\n                pm.expect(item).to.have.property(\"account\");\n                pm.expect(item).to.have.property(\"dateTransaction\");\n                pm.expect(item).to.have.property(\"montant\");\n                pm.expect(item).to.have.property(\"type\");\n                pm.expect(item).to.have.property(\"description\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"id\");\n            pm.expect(jsonResponse).to.have.property(\"account\");\n            pm.expect(jsonResponse).to.have.property(\"dateTransaction\");\n            pm.expect(jsonResponse).to.have.property(\"montant\");\n            pm.expect(jsonResponse).to.have.property(\"type\");\n            pm.expect(jsonResponse).to.have.property(\"description\");\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/transactions/accounts/{accountId}"
   }, {
@@ -190,8 +218,8 @@
       "request" : {
         "method" : "GET",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "url" : {
           "path" : [ "api", "accounts" ],
@@ -202,25 +230,32 @@
         }
       },
       "response" : [ {
-        "code" : 400,
-        "name" : "Requête invalide",
-        "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
-        } ],
-        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
-        "status" : "Bad Request"
-      }, {
         "code" : 200,
         "name" : "Opération réussie",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
         "status" : "OK"
+      }, {
+        "code" : 400,
+        "name" : "Requête invalide",
+        "header" : [ {
+          "value" : "application/json",
+          "key" : "Content-Type"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Bad Request"
       } ],
-      "name" : "Récupérer tous les comptes bancaires"
+      "name" : "Récupérer tous les comptes bancaires",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([200, 400]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 400\", function () {\n    if (pm.response.code === 400) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 200\", function () {\n    if (pm.response.code === 200) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"id\");\n                pm.expect(item).to.have.property(\"nom\");\n                pm.expect(item).to.have.property(\"prenom\");\n                pm.expect(item).to.have.property(\"accountNumber\");\n                pm.expect(item).to.have.property(\"total\");\n                pm.expect(item).to.have.property(\"currency\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"id\");\n            pm.expect(jsonResponse).to.have.property(\"nom\");\n            pm.expect(jsonResponse).to.have.property(\"prenom\");\n            pm.expect(jsonResponse).to.have.property(\"accountNumber\");\n            pm.expect(jsonResponse).to.have.property(\"total\");\n            pm.expect(jsonResponse).to.have.property(\"currency\");\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/accounts"
   }, {
@@ -228,8 +263,8 @@
       "request" : {
         "method" : "POST",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "body" : {
           "mode" : "raw",
@@ -252,8 +287,8 @@
         "code" : 400,
         "name" : "Requête invalide",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
         "status" : "Bad Request"
@@ -261,13 +296,20 @@
         "code" : 201,
         "name" : "Compte créé avec succès",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"nom\" : \"<string>\",\r\n  \"prenom\" : \"<string>\",\r\n  \"accountNumber\" : \"<string>\",\r\n  \"total\" : \"<number>\",\r\n  \"currency\" : \"<string>\"\r\n}",
         "status" : "Created"
       } ],
-      "name" : "Créer un nouveau compte bancaire"
+      "name" : "Créer un nouveau compte bancaire",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([400, 201]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 400\", function () {\n    if (pm.response.code === 400) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 201\", function () {\n    if (pm.response.code === 201) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"id\");\n                pm.expect(item).to.have.property(\"nom\");\n                pm.expect(item).to.have.property(\"prenom\");\n                pm.expect(item).to.have.property(\"accountNumber\");\n                pm.expect(item).to.have.property(\"total\");\n                pm.expect(item).to.have.property(\"currency\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"id\");\n            pm.expect(jsonResponse).to.have.property(\"nom\");\n            pm.expect(jsonResponse).to.have.property(\"prenom\");\n            pm.expect(jsonResponse).to.have.property(\"accountNumber\");\n            pm.expect(jsonResponse).to.have.property(\"total\");\n            pm.expect(jsonResponse).to.have.property(\"currency\");\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/accounts"
   }, {
@@ -275,8 +317,8 @@
       "request" : {
         "method" : "GET",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "url" : {
           "path" : [ "api", "transactions" ],
@@ -290,8 +332,8 @@
         "code" : 400,
         "name" : "Requête invalide",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
         "status" : "Bad Request"
@@ -299,13 +341,20 @@
         "code" : 200,
         "name" : "Opération réussie",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"account\" : {\r\n    \"id\" : \"<long>\",\r\n    \"nom\" : \"<string>\",\r\n    \"prenom\" : \"<string>\",\r\n    \"accountNumber\" : \"<string>\",\r\n    \"total\" : \"<number>\",\r\n    \"currency\" : \"<string>\"\r\n  },\r\n  \"dateTransaction\" : \"<dateTime>\",\r\n  \"montant\" : \"<number>\",\r\n  \"type\" : \"<string>\",\r\n  \"description\" : \"<string>\"\r\n}",
         "status" : "OK"
       } ],
-      "name" : "Récupérer toutes les transactions"
+      "name" : "Récupérer toutes les transactions",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([400, 200]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 400\", function () {\n    if (pm.response.code === 400) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 200\", function () {\n    if (pm.response.code === 200) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"id\");\n                pm.expect(item).to.have.property(\"account\");\n                pm.expect(item).to.have.property(\"dateTransaction\");\n                pm.expect(item).to.have.property(\"montant\");\n                pm.expect(item).to.have.property(\"type\");\n                pm.expect(item).to.have.property(\"description\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"id\");\n            pm.expect(jsonResponse).to.have.property(\"account\");\n            pm.expect(jsonResponse).to.have.property(\"dateTransaction\");\n            pm.expect(jsonResponse).to.have.property(\"montant\");\n            pm.expect(jsonResponse).to.have.property(\"type\");\n            pm.expect(jsonResponse).to.have.property(\"description\");\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/transactions"
   }, {
@@ -313,8 +362,8 @@
       "request" : {
         "method" : "GET",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "url" : {
           "path" : [ "api", "transactions", ":id" ],
@@ -322,32 +371,39 @@
           "host" : [ "{{baseUrl}}" ],
           "variable" : [ {
             "description" : "L'ID de la transaction à récupérer",
-            "key" : "id",
-            "value" : "3"
+            "value" : "3",
+            "key" : "id"
           } ],
           "raw" : "{{baseUrl}}/api/transactions/:id"
         }
       },
       "response" : [ {
-        "code" : 404,
-        "name" : "Transaction non trouvée",
-        "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
-        } ],
-        "body" : "{}",
-        "status" : "Not Found"
-      }, {
         "code" : 200,
         "name" : "Opération réussie",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{\r\n  \"id\" : \"<long>\",\r\n  \"account\" : {\r\n    \"id\" : \"<long>\",\r\n    \"nom\" : \"<string>\",\r\n    \"prenom\" : \"<string>\",\r\n    \"accountNumber\" : \"<string>\",\r\n    \"total\" : \"<number>\",\r\n    \"currency\" : \"<string>\"\r\n  },\r\n  \"dateTransaction\" : \"<dateTime>\",\r\n  \"montant\" : \"<number>\",\r\n  \"type\" : \"<string>\",\r\n  \"description\" : \"<string>\"\r\n}",
         "status" : "OK"
+      }, {
+        "code" : 404,
+        "name" : "Transaction non trouvée",
+        "header" : [ {
+          "value" : "application/json",
+          "key" : "Content-Type"
+        } ],
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
+        "status" : "Not Found"
       } ],
-      "name" : "Récupérer une transaction par son ID"
+      "name" : "Récupérer une transaction par son ID",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([200, 404]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 404\", function () {\n    if (pm.response.code === 404) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 200\", function () {\n    if (pm.response.code === 200) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"id\");\n                pm.expect(item).to.have.property(\"account\");\n                pm.expect(item).to.have.property(\"dateTransaction\");\n                pm.expect(item).to.have.property(\"montant\");\n                pm.expect(item).to.have.property(\"type\");\n                pm.expect(item).to.have.property(\"description\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"id\");\n            pm.expect(jsonResponse).to.have.property(\"account\");\n            pm.expect(jsonResponse).to.have.property(\"dateTransaction\");\n            pm.expect(jsonResponse).to.have.property(\"montant\");\n            pm.expect(jsonResponse).to.have.property(\"type\");\n            pm.expect(jsonResponse).to.have.property(\"description\");\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/transactions/{id}"
   }, {
@@ -355,8 +411,8 @@
       "request" : {
         "method" : "DELETE",
         "header" : [ {
-          "key" : "Accept",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Accept"
         } ],
         "url" : {
           "path" : [ "api", "transactions", ":id" ],
@@ -364,8 +420,8 @@
           "host" : [ "{{baseUrl}}" ],
           "variable" : [ {
             "description" : "L'ID de la transaction à supprimer",
-            "key" : "id",
-            "value" : "4"
+            "value" : "4",
+            "key" : "id"
           } ],
           "raw" : "{{baseUrl}}/api/transactions/:id"
         }
@@ -374,8 +430,8 @@
         "code" : 204,
         "name" : "Transaction supprimée avec succès",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
         "body" : "{}",
         "status" : "No Content"
@@ -383,24 +439,31 @@
         "code" : 404,
         "name" : "Transaction non trouvée",
         "header" : [ {
-          "key" : "Content-Type",
-          "value" : "application/json"
+          "value" : "application/json",
+          "key" : "Content-Type"
         } ],
-        "body" : "{}",
+        "body" : "{\r\n  \"timestamp\" : \"<dateTime>\",\r\n  \"status\" : \"<long>\",\r\n  \"error\" : \"<string>\",\r\n  \"path\" : \"<string>\"\r\n}",
         "status" : "Not Found"
       } ],
-      "name" : "Supprimer une transaction"
+      "name" : "Supprimer une transaction",
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : "pm.test(\"Vérification des réponses possibles\", function () {\n    pm.expect([204, 404]).to.include(pm.response.code);\n});\npm.test(\"Vérification du schéma de réponse pour le statut 404\", function () {\n    if (pm.response.code === 404) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n                pm.expect(item).to.have.property(\"timestamp\");\n                pm.expect(item).to.have.property(\"status\");\n                pm.expect(item).to.have.property(\"error\");\n                pm.expect(item).to.have.property(\"path\");\n            });\n        } else {\n            pm.expect(jsonResponse).to.have.property(\"timestamp\");\n            pm.expect(jsonResponse).to.have.property(\"status\");\n            pm.expect(jsonResponse).to.have.property(\"error\");\n            pm.expect(jsonResponse).to.have.property(\"path\");\n        }\n    }\n});\npm.test(\"Vérification du schéma de réponse pour le statut 204\", function () {\n    if (pm.response.code === 204) {\n        const jsonResponse = pm.response.json();\n        if (Array.isArray(jsonResponse)) {\n            pm.expect(jsonResponse).to.be.an('array').and.not.be.empty;\n            jsonResponse.forEach(function(item) {\n            });\n        } else {\n        }\n    }\n});\n"
+        }
+      } ]
     } ],
     "name" : "/api/transactions/{id}"
   } ],
   "variable" : [ {
+    "value" : "http://localhost:8084",
     "description" : "URL de base de l'API",
-    "key" : "baseUrl",
-    "value" : "http://localhost:8084"
+    "key" : "baseUrl"
   } ],
   "info" : {
+    "name" : "Banking App API",
     "description" : "API pour la gestion des comptes bancaires et des transactions.",
-    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "name" : "Banking App API"
+    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   }
 }

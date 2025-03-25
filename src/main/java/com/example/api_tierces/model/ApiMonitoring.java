@@ -13,12 +13,12 @@ public class ApiMonitoring {
     private Long id;
 
     private String path; // Chemin de l'API (endpoint)
-    private LocalDateTime temps; // Timestamp de l'événement
+    private LocalDateTime temps; // temps du test
     private long responseTime; // Temps de réponse en millisecondes
     private int statusCode; // Code de statut HTTP
-    private String errorMessage; // Message d'erreur (facultatif)
-    private String level; // Niveau de log (INFO, ERROR, etc.)
-    private String metadata; // Métadonnées supplémentaires (JSON)
+    private String errorMessage; // Message d'erreur
+    private String level; // Niveau de log (INFO, ERROR)
+    private String metadata; // Métadonnées (path et methode)
 
     // Getters and Setters
     public Long getId() {

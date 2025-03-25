@@ -80,5 +80,30 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="6" author="maram">
+        <createTable tableName="api_change">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="changement" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="temps" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--<changeSet id="7" author="maram">
+        <createTable tableName="api_collection">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="collection" type="VARCHAR(5000)"/>
+            <column name="temps" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>-->
+
+
 
 </databaseChangeLog>

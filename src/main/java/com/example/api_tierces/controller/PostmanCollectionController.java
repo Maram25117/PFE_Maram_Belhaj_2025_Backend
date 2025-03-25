@@ -5,8 +5,13 @@ import com.example.api_tierces.repository.ApiRepository;
 import com.example.api_tierces.repository.ApiParametersRepository;
 import com.example.api_tierces.repository.ApiResponseRepository;
 import com.example.api_tierces.repository.SchemaRepository;
+import com.example.api_tierces.service.PostmanProcessingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -1058,7 +1063,6 @@ import com.example.api_tierces.model.*;
 import com.example.api_tierces.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -3434,7 +3438,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 //hedhaaaa l codeeee cv belgdeeeee
-@RestController
+/*@RestController
 @RequestMapping("/postman")
 public class PostmanCollectionController {
 
@@ -3533,6 +3537,452 @@ public class PostmanCollectionController {
                             "description", (Object) param.getDescription()
                     );
                 })
+                .collect(Collectors.toList());
+    }
+
+    private List<Map<String, Object>> createQueryParameters(Api api) {
+        return apiParametersRepository.findByApiId(api.getId()).stream()
+                .filter(param -> "query".equals(param.getTypein()))
+                .map(param -> Map.of(
+                        "key", param.getName(),
+                        "value", (Object) param.getExample(),
+                        "description", param.getDescription()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> createRequestBody(Api api) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("mode", "raw");
+
+        try {
+            JsonNode requestBodyNode = objectMapper.readTree(api.getRequest_body());
+            String rawBody = transformJsonSchemaToSimplifiedFormatForRequestBody(requestBodyNode, true);
+            body.put("raw", rawBody); // Put transformed raw body
+
+        } catch (Exception e) {
+            System.err.println("Error processing request body: " + e.getMessage());
+            body.put("raw", api.getRequest_body()); // Fallback
+        }
+
+        Map<String, Object> options = new HashMap<>();
+        Map<String, Object> rawOptions = new HashMap<>();
+        rawOptions.put("language", "json");
+        options.put("raw", rawOptions);
+        body.put("options", options);
+
+        return body;
+    }
+
+    private List<Map<String, Object>> createResponses(Api api) {
+        return apiResponseRepository.findByApiId(api.getId()).stream()
+                .map(this::createResponse)
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> createResponse(ApiResponse apiResponse) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("name", apiResponse.getDescription());
+
+        // Set the status text using getPostmanStatusText()
+        int statusCode = Integer.parseInt(apiResponse.getStatus().split(" ")[0]);
+        String statusText = getPostmanStatusText(statusCode);
+        response.put("status", statusText);
+
+        //Put the status code in the code
+        response.put("code", statusCode);
+        response.put("header", List.of(createHeader("Content-Type", "application/json")));
+
+        String responseBody = "{}";
+        if (apiResponse.getSchema() != null) {
+            try {
+                JsonNode schemaNode = objectMapper.readTree(apiResponse.getSchema().getSchemas());
+                responseBody = transformJsonSchemaToSimplifiedFormat(schemaNode, true);
+            } catch (Exception e) {
+                System.err.println("Error processing response schema: " + e.getMessage());
+                responseBody = "{}";
+            }
+        }
+
+        response.put("body", responseBody);
+        return response;
+    }
+
+    // Separate method for request body transformation
+    private String transformJsonSchemaToSimplifiedFormatForRequestBody(JsonNode schemaNode, boolean prettyPrint) {
+        try {
+            if (schemaNode.has("properties")) {
+                ObjectNode processedNode = processJsonNodeForRequestBody(schemaNode.get("properties"));
+                if (prettyPrint) {
+                    return prettyPrintJson(processedNode);
+                } else {
+                    return objectMapper.writeValueAsString(processedNode);
+                }
+            } else {
+                return "{}";
+            }
+        } catch (Exception e) {
+            return "{}";
+        }
+    }
+
+    private String transformJsonSchemaToSimplifiedFormat(JsonNode schemaNode, boolean prettyPrint) {
+        try {
+            if (schemaNode.has("$ref")) {
+                JsonNode resolvedSchema = resolveRef(schemaNode.get("$ref").asText());
+                if (resolvedSchema != null) {
+                    return transformJsonSchemaToSimplifiedFormat(resolvedSchema, prettyPrint);  // Recursive call
+                } else {
+                    return "<object>"; // or some other indicator if the ref couldn't be resolved
+                }
+            } else if (schemaNode.has("properties")) {
+                ObjectNode processedNode = processJsonNode(schemaNode.get("properties"));
+                if (prettyPrint) {
+                    return prettyPrintJson(processedNode);
+                } else {
+                    return objectMapper.writeValueAsString(processedNode);
+                }
+            } else {
+                return "{}";
+            }
+        } catch (Exception e) {
+            return "{}";
+        }
+    }
+    private String prettyPrintJson(JsonNode jsonNode) throws JsonProcessingException {
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
+    }
+
+    private ObjectNode processJsonNodeForRequestBody(JsonNode node) {
+        ObjectNode result = objectMapper.createObjectNode();
+
+        if (node.isObject()) {
+            node.fields().forEachRemaining(entry -> {
+                String fieldName = entry.getKey();
+                JsonNode fieldValue = entry.getValue();
+                String type = null;
+                String format = null;
+
+                if (fieldValue.has("type")) {
+                    type = fieldValue.get("type").asText();
+                }
+
+                if (fieldValue.has("format")) {
+                    format = fieldValue.get("format").asText();
+                }
+
+                if (fieldValue.has("$ref")) {
+                    // Ignore $ref for request body
+                    return;
+                }
+
+                if (type != null) {
+                    switch (type) {
+                        case "string":
+                            if ("date-time".equals(format)) {
+                                result.put(fieldName, "<dateTime>");
+                            } else {
+                                result.put(fieldName, "<string>");
+                            }
+                            break;
+                        case "number":
+                            result.put(fieldName, "<number>");
+                            break;
+                        case "integer":
+                            result.put(fieldName, "<long>"); // Force integer to long
+                            break;
+                        case "long":
+                            result.put(fieldName, "<long>");
+                            break;
+                        case "boolean":
+                            result.put(fieldName, "<boolean>");
+                            break;
+                        case "array":
+                            result.put(fieldName, "<array>");
+                            break;
+                        case "object":
+                            if (fieldValue.has("properties")) {
+                                result.set(fieldName, processJsonNodeForRequestBody(fieldValue.get("properties"))); // Recursively process nested object
+                            } else {
+                                result.put(fieldName, "<object>");
+                            }
+                            break;
+                        default:
+                            result.put(fieldName, "<object>");
+                            break;
+                    }
+                } else {
+                    result.put(fieldName, "<object>"); // Default if no type found
+                }
+            });
+        }
+
+        return result;
+    }
+
+
+    private ObjectNode processJsonNode(JsonNode node) {
+        ObjectNode result = objectMapper.createObjectNode();
+
+        if (node.isObject()) {
+            node.fields().forEachRemaining(entry -> {
+                String fieldName = entry.getKey();
+                JsonNode fieldValue = entry.getValue();
+                String type = null;
+                String format = null;
+
+                if (fieldValue.has("type")) {
+                    type = fieldValue.get("type").asText();
+                }
+
+                if (fieldValue.has("format")) {
+                    format = fieldValue.get("format").asText();
+                }
+
+                if (fieldValue.has("$ref")) {
+                    JsonNode resolvedSchema = resolveRef(fieldValue.get("$ref").asText());
+                    if (resolvedSchema != null && resolvedSchema.has("properties")) {
+                        result.set(fieldName, processJsonNode(resolvedSchema.get("properties"))); // Process the properties
+                        return;
+                    } else {
+                        result.put(fieldName, "<object>");
+                        return;
+                    }
+                }
+
+                if (type != null) {
+                    switch (type) {
+                        case "string":
+                            if ("date-time".equals(format)) {
+                                result.put(fieldName, "<dateTime>");
+                            } else {
+                                result.put(fieldName, "<string>");
+                            }
+                            break;
+                        case "number":
+                            result.put(fieldName, "<number>");
+                            break;
+                        case "integer":
+                            result.put(fieldName, "<long>"); // Force integer to long
+                            break;
+                        case "long":
+                            result.put(fieldName, "<long>");
+                            break;
+                        case "boolean":
+                            result.put(fieldName, "<boolean>");
+                            break;
+                        case "array":
+                            result.put(fieldName, "<array>");
+                            break;
+
+                        case "object":
+                            if (fieldValue.has("properties")) {
+                                result.set(fieldName, processJsonNode(fieldValue.get("properties"))); // Recursively process nested object
+                            } else {
+                                result.put(fieldName, "<object>");
+                            }
+                            break;
+                        default:
+                            result.put(fieldName, "<object>");
+                            break;
+                    }
+                } else {
+                    result.put(fieldName, "<object>"); // Default if no type found
+                }
+            });
+        }
+
+        return result;
+    }
+    private String getPostmanStatusText(int statusCode) {
+        switch (statusCode) {
+            case 200:
+                return "OK";
+            case 201:
+                return "Created";
+            case 204:
+                return "No Content";
+            case 400:
+                return "Bad Request";
+            case 401:
+                return "Unauthorized";
+            case 403:
+                return "Forbidden";
+            case 404:
+                return "Not Found";
+            case 500:
+                return "Internal Server Error";
+            default:
+                return "Unknown Status";
+        }
+    }
+
+    private List<Map<String, String>> createEnvironmentVariables() {
+        return List.of(Map.of("key", "baseUrl", "value", "http://localhost:8084", "description", "URL de base de l'API"));
+    }
+
+    private Map<String, String> createHeader(String key, String value) {
+        return Map.of("key", key, "value", value);
+    }
+
+    private JsonNode resolveRef(String ref) {
+        // Extract schema name from ref (assuming ref is like "#/components/schemas/SchemaName")
+        String[] parts = ref.split("/");
+        String schemaName = parts[parts.length - 1];
+
+        List<Schema> schemas = schemaRepository.findByName(schemaName);
+        if (!schemas.isEmpty()) {
+            try {
+                return objectMapper.readTree(schemas.get(0).getSchemas());
+            } catch (JsonProcessingException e) {
+                System.err.println("Error processing JSON from schema " + schemaName + ": " + e.getMessage());
+                return null; // Or handle the error as appropriate for your application
+            } catch (IOException e) {
+                System.err.println("IO Error reading JSON from schema " + schemaName + ": " + e.getMessage());
+                return null; // Or handle the error as appropriate for your application
+            }
+        }
+        return null;
+    }
+}*/
+
+
+@Tag(name = "A-Postman-Collection , Création d'une Collection Postman")
+@RestController
+@RequestMapping("/postman")
+public class PostmanCollectionController {
+
+    @Autowired
+    private ApiRepository apiRepository;
+
+    @Autowired
+    private ApiParametersRepository apiParametersRepository;
+
+    @Autowired
+    private ApiResponseRepository apiResponseRepository;
+
+    @Autowired
+    private SchemaRepository schemaRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private PostmanProcessingService postmanProcessingService;
+
+    @Operation(summary = "Création d'une collection Postman", description = "Création d'une collection Postman a partir des données stockés dans les tables")
+    @GetMapping("/collection")
+    //@Scheduled(cron = "0 0 * * * ?")
+    public ResponseEntity<String> generateAndProcessPostmanCollection() {
+        Map<String, Object> collection = new HashMap<>();
+        collection.put("info", createInfo());
+        collection.put("item", createItems());
+        collection.put("variable", createEnvironmentVariables());
+
+        try {
+            String postmanCollectionJson = objectMapper.writeValueAsString(collection);
+            String processingResult = postmanProcessingService.processPostmanCollection(postmanCollectionJson);
+            return ResponseEntity.ok(processingResult);
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la génération de la collection Postman : " + e.getMessage());
+        }
+    }
+
+    // Les méthodes suivantes sont identiques à celles du premier code fourni
+    private Map<String, Object> createInfo() {
+        return Map.of(
+                "name", "Banking App API",
+                "description", "API pour la gestion des comptes bancaires et des transactions.",
+                "schema", "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+        );
+    }
+
+    private List<Map<String, Object>> createItems() {
+        return apiRepository.findAll().stream().map(this::createApiItem).collect(Collectors.toList());
+    }
+
+    private Map<String, Object> createApiItem(Api api) {
+        Map<String, Object> apiItem = new HashMap<>();
+        apiItem.put("name", api.getPath());
+
+        List<Map<String, Object>> requests = new ArrayList<>();
+        Map<String, Object> request = new HashMap<>();
+        request.put("name", api.getDescription());
+        request.put("request", createRequest(api));
+        request.put("response", createResponses(api));
+        requests.add(request);
+
+        apiItem.put("item", requests);
+        return apiItem;
+    }
+
+    private Map<String, Object> createRequest(Api api) {
+        Map<String, Object> request = new HashMap<>();
+        request.put("method", api.getMethod());
+        request.put("header", List.of(createHeader("Accept", "application/json")));
+        request.put("url", createUrl(api));
+
+        if (api.getRequest_body() != null && !api.getRequest_body().isEmpty()) {
+            request.put("body", createRequestBody(api));
+        }
+        return request;
+    }
+
+    private Map<String, Object> createUrl(Api api) {
+        String rawUrl = "{{baseUrl}}" + transformPathVariables(api.getPath());
+        List<String> pathSegments = Arrays.asList(rawUrl.replace("{{baseUrl}}/", "").split("/"));
+
+        Map<String, Object> url = new HashMap<>();
+        url.put("raw", rawUrl);
+        url.put("host", List.of("{{baseUrl}}"));
+        url.put("path", pathSegments);
+        url.put("variable", createPathVariables(api));
+        url.put("query", createQueryParameters(api));
+        return url;
+    }
+
+    private String transformPathVariables(String path) {
+        return path.replaceAll("\\{(.*?)\\}", ":$1");
+    }
+
+
+    private List<Map<String, Object>> createPathVariables(Api api) {
+        return apiParametersRepository.findByApiId(api.getId()).stream()
+                .filter(param -> "path".equals(param.getTypein()))
+                .map(param -> {
+                    if (param == null) {
+                        // Handle the null parameter case
+                        System.err.println("Null parameter encountered for API ID: " + api.getId());
+                        return Collections.emptyMap(); // Return an empty map to avoid NullPointerException
+                    }
+
+                    String name = param.getName();
+                    String description = param.getDescription();
+                    String dataType = param.getData_type() != null ? param.getData_type() : "string";
+                    if ("integer".equals(dataType)) {
+                        dataType = "long"; // Change integer to long
+                    }
+                    String finalDataType = dataType;
+
+                    if (name == null) {
+                        System.err.println("Null name for parameter: " + param);
+                        return Collections.emptyMap();
+                    }
+
+                    // Use a mutable HashMap with explicit String key type
+                    Map<String, Object> paramMap = new HashMap<>();
+                    paramMap.put("key", name);
+                    paramMap.put("value", "<" + finalDataType + ">");
+
+                    // Add the description only if it's not null
+                    if (description != null) {
+                        paramMap.put("description", description);
+                    }
+
+                    return paramMap;
+                })
+                .filter(map -> !map.isEmpty()) // Remove empty maps from the list
+                .map(map -> (Map<String, Object>) map) // Explicitly cast the Map
                 .collect(Collectors.toList());
     }
 

@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface ApiMonitoringRepository extends JpaRepository<ApiMonitoring, Long> {
-    @Query("SELECT a FROM ApiMonitoring a WHERE a.metadata = :metadata")
     Optional<ApiMonitoring> findByMetadata(@Param("metadata") String metadata);
 }
 
