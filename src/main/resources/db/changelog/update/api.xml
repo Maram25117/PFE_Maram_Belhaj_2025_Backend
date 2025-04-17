@@ -88,21 +88,46 @@
             <column name="changement" type="TEXT">
                 <constraints nullable="false"/>
             </column>
+            <column name="donnee_change" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
             <column name="temps" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
-    <!--<changeSet id="7" author="maram">
-        <createTable tableName="api_collection">
+    <changeSet id="7" author="maram">
+        <createTable tableName="admin">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="collection" type="VARCHAR(5000)"/>
-            <column name="temps" type="TIMESTAMP"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_token" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
-    </changeSet>-->
+    </changeSet>
+
+    <changeSet id="8" author="maram">
+        <createTable tableName="swagger_url">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="url" type="VARCHAR(1024)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
 
 
 

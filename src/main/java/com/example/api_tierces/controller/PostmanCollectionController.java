@@ -126,7 +126,7 @@ public class PostmanCollectionController {
             String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(collection);
 
             // Définir le chemin du fichier
-            Path path = Paths.get("test.json");
+            Path path = Paths.get("test2.json");
 
             // Écrire le fichier
             Files.write(path, json.getBytes());
@@ -293,7 +293,7 @@ public class PostmanCollectionController {
             String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(collection);
 
             // Définir le chemin du fichier
-            Path path = Paths.get("postman_collection.json");
+            Path path = Paths.get("collection.json");
 
             // Écrire le fichier
             Files.write(path, json.getBytes());
@@ -444,7 +444,7 @@ public class PostmanCollectionController {
             String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(collection);
 
             // Définir le chemin du fichier
-            Path path = Paths.get("test1.json");
+            Path path = Paths.get("test2.json");
 
             // Écrire le fichier
             Files.write(path, json.getBytes());
@@ -3846,6 +3846,7 @@ public class PostmanCollectionController {
     }
 }*/
 
+import java.util.Objects;
 
 @Tag(name = "A-Postman-Collection , Création d'une Collection Postman")
 @RestController
@@ -4020,13 +4021,30 @@ public class PostmanCollectionController {
         return body;
     }
 
-    private List<Map<String, Object>> createResponses(Api api) {
+    /*private List<Map<String, Object>> createResponses(Api api) {
         return apiResponseRepository.findByApiId(api.getId()).stream()
                 .map(this::createResponse)
                 .collect(Collectors.toList());
+    }*/
+    private List<Map<String, Object>> createResponses(Api api) {
+        // 1. Récupère toutes les réponses associées à l'API depuis le repository.
+        return apiResponseRepository.findByApiId(api.getId())
+                // 2. Crée un stream pour traiter chaque réponse individuellement.
+                .stream()
+                // 3. Appelle la méthode 'createResponse' pour chaque ApiResponse.
+                //    Cette méthode peut retourner null si la réponse doit être ignorée.
+                .map(this::createResponse) // Crée les objets Map (peut retourner null)
+                // 4. Filtre le stream : ne conserve que les éléments qui ne sont PAS null.
+                //    Objects::nonNull est une référence de méthode équivalente à l'expression lambda (response -> response != null).
+                .filter(Objects::nonNull) // Filtre les résultats nuls générés par createResponse
+                // 5. Collecte les éléments restants (non nuls) dans une nouvelle liste.
+                .collect(Collectors.toList()); // Collecte uniquement les objets non nuls
     }
 
-    private Map<String, Object> createResponse(ApiResponse apiResponse) {
+
+
+    /*hedha lcode lowel*/
+    /*private Map<String, Object> createResponse(ApiResponse apiResponse) {
         Map<String, Object> response = new HashMap<>();
         response.put("name", apiResponse.getDescription());
 
@@ -4052,7 +4070,190 @@ public class PostmanCollectionController {
 
         response.put("body", responseBody);
         return response;
+    }*/
+
+
+
+    /*hedha te3 fazet default*/
+    /*private Map<String, Object> createResponse(ApiResponse apiResponse) {
+        if (apiResponse == null || apiResponse.getStatus() == null) {
+            System.err.println("Warning: Skipping response due to null ApiResponse or null status.");
+            return null;
+        }
+
+        String statusString = apiResponse.getStatus().trim();
+
+        if ("default".equalsIgnoreCase(statusString)) {
+            System.out.println("Info: Ignoring response with status 'default' for description: " + apiResponse.getDescription());
+            return null;
+        }
+
+        int statusCode;
+        String statusText;
+
+        try {
+            String statusCodePart = statusString.split(" ")[0];
+            statusCode = Integer.parseInt(statusCodePart);
+            statusText = getPostmanStatusText(statusCode);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.err.println("Error: Could not parse status code from '" + statusString + "'. Skipping this response. Error: " + e.getMessage());
+            return null;
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        String name = (apiResponse.getDescription() != null && !apiResponse.getDescription().isBlank())
+                ? apiResponse.getDescription()
+                : statusString;
+
+        response.put("name", name);
+        response.put("status", statusText);
+        response.put("code", statusCode);
+        response.put("_originalStatus", statusString);
+        response.put("header", List.of(createHeader("Content-Type", "application/json")));
+
+        String responseBody = "{}";
+
+        if (apiResponse.getSchema() != null && apiResponse.getSchema().getSchemas() != null) {
+            try {
+                JsonNode schemaNode = objectMapper.readTree(apiResponse.getSchema().getSchemas());
+                responseBody = transformJsonSchemaToSimplifiedFormat(schemaNode, true);
+            } catch (Exception e) {
+                System.err.println("Error processing response schema for status '" + statusString + "': " + e.getMessage() + ". Using default empty body.");
+            }
+        } else {
+            System.out.println("Info: No schema found for response status '" + statusString + "'. Using default empty body.");
+        }
+
+        response.put("body", responseBody);
+        return response;
+    }*/
+    /*hedha te3 fazet null fel response*/
+    /*private Map<String, Object> createResponse(ApiResponse apiResponse) {
+        if (apiResponse == null || apiResponse.getStatus() == null) {
+            System.err.println("⚠️ Warning: Skipping response due to null ApiResponse or null status.");
+            return null;
+        }
+
+        String statusString = apiResponse.getStatus().trim();
+
+        if ("default".equalsIgnoreCase(statusString)) {
+            System.out.println("ℹ️ Info: Ignoring response with status 'default' for description: " + apiResponse.getDescription());
+            return null;
+        }
+
+        int statusCode;
+        String statusText;
+
+        try {
+            String statusCodePart = statusString.split(" ")[0];
+            statusCode = Integer.parseInt(statusCodePart);
+            statusText = getPostmanStatusText(statusCode);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.err.println("❌ Error: Could not parse status code from '" + statusString + "'. Skipping this response. Error: " + e.getMessage());
+            return null;
+        }
+
+        Map<String, Object> response = new LinkedHashMap<>();
+
+        // Nom de la réponse
+        String name = (apiResponse.getDescription() != null && !apiResponse.getDescription().isBlank())
+                ? apiResponse.getDescription()
+                : statusString;
+
+        response.put("name", name);
+        response.put("status", statusText);
+        response.put("code", statusCode);
+        response.put("_originalStatus", statusString);
+
+        // Headers
+        response.put("header", List.of(createHeader("Content-Type", "application/json")));
+
+        // Body
+        String responseBody = "{}";
+
+        if (apiResponse.getSchema() != null && apiResponse.getSchema().getSchemas() != null) {
+            try {
+                JsonNode schemaNode = objectMapper.readTree(apiResponse.getSchema().getSchemas());
+                responseBody = transformJsonSchemaToSimplifiedFormat(schemaNode, true);
+
+                // Si la transformation retourne null, on fallback
+                if (responseBody == null || responseBody.isBlank()) {
+                    responseBody = "{}";
+                    System.out.println("ℹ️ Info: Empty or invalid schema body generated, using default empty body.");
+                }
+            } catch (Exception e) {
+                System.err.println("❌ Error processing response schema for status '" + statusString + "': " + e.getMessage() + ". Using default empty body.");
+            }
+        } else {
+            System.out.println("ℹ️ Info: No schema found for response status '" + statusString + "'. Using default empty body.");
+        }
+
+        response.put("body", responseBody);
+
+        return response;
+    }*/
+    private Map<String, Object> createResponse(ApiResponse apiResponse) {
+        if (apiResponse == null || apiResponse.getStatus() == null) {
+            System.err.println("⚠️ Warning: Skipping response due to null ApiResponse or null status.");
+            return null;
+        }
+
+        String statusString = apiResponse.getStatus().trim();
+
+        if ("default".equalsIgnoreCase(statusString)) {
+            System.out.println("ℹ️ Info: Ignoring response with status 'default' for description: " + apiResponse.getDescription());
+            return null;
+        }
+
+        int statusCode;
+        String statusText;
+
+        try {
+            String statusCodePart = statusString.split(" ")[0];
+            statusCode = Integer.parseInt(statusCodePart);
+            statusText = getPostmanStatusText(statusCode);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.err.println("❌ Error: Could not parse status code from '" + statusString + "'. Skipping this response. Error: " + e.getMessage());
+            return null;
+        }
+
+        Map<String, Object> response = new LinkedHashMap<>();
+
+        String name = (apiResponse.getDescription() != null && !apiResponse.getDescription().isBlank())
+                ? apiResponse.getDescription()
+                : statusString;
+
+        response.put("name", name);
+        response.put("status", statusText);
+        response.put("code", statusCode);
+        response.put("_originalStatus", statusString);
+        response.put("header", List.of(createHeader("Content-Type", "application/json")));
+
+        String responseBody = "{}";
+
+        if (apiResponse.getSchema() != null && apiResponse.getSchema().getSchemas() != null) {
+            try {
+                JsonNode schemaNode = objectMapper.readTree(apiResponse.getSchema().getSchemas());
+                responseBody = transformJsonSchemaToSimplifiedFormat(schemaNode, true);
+
+                if (responseBody == null || responseBody.isBlank()) {
+                    responseBody = "{}";
+                    System.out.println("ℹ️ Info: Empty or invalid schema body generated, using default empty body.");
+                }
+            } catch (Exception e) {
+                System.err.println("❌ Error processing response schema for status '" + statusString + "': " + e.getMessage() + ". Using default empty body.");
+            }
+        } else {
+            System.out.println("ℹ️ Info: No schema found for response status '" + statusString + "'. Using default empty body.");
+        }
+
+        response.put("body", responseBody);
+        return response;
     }
+
+
+
+
 
     // Separate method for request body transformation
     private String transformJsonSchemaToSimplifiedFormatForRequestBody(JsonNode schemaNode, boolean prettyPrint) {
@@ -4291,3 +4492,520 @@ public class PostmanCollectionController {
         return null;
     }
 }
+/*import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType; // Import MediaType
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+// Assuming your entity/repository imports are correct
+import com.example.api_tierces.model.Api;
+import com.example.api_tierces.model.ApiResponse;
+import com.example.api_tierces.model.Schema;
+import com.example.api_tierces.repository.ApiParametersRepository;
+import com.example.api_tierces.repository.ApiRepository;
+import com.example.api_tierces.repository.ApiResponseRepository;
+import com.example.api_tierces.repository.SchemaRepository;
+import com.example.api_tierces.service.PostmanProcessingService; // Assuming service import
+
+
+import java.io.IOException;
+import java.time.LocalDateTime; // Import LocalDateTime
+import java.util.*;
+import java.util.stream.Collectors;
+
+// Ajoutez un logger si vous en utilisez un (recommandé)
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+
+@Tag(name = "A-Postman-Collection , Création d'une Collection Postman")
+@RestController
+@RequestMapping("/postman")
+public class PostmanCollectionController {
+
+    // private static final Logger logger = LoggerFactory.getLogger(PostmanCollectionController.class); // Logger example
+
+    @Autowired
+    private ApiRepository apiRepository;
+    @Autowired
+    private ApiParametersRepository apiParametersRepository;
+    @Autowired
+    private ApiResponseRepository apiResponseRepository;
+    @Autowired
+    private SchemaRepository schemaRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private PostmanProcessingService postmanProcessingService;
+
+    @Operation(summary = "Création d'une collection Postman", description = "Création d'une collection Postman a partir des données stockés dans les tables")
+    @GetMapping("/collection")
+    public ResponseEntity<?> generateAndProcessPostmanCollection() { // Return ResponseEntity<?> for flexibility
+        Map<String, Object> collection = new HashMap<>();
+        try {
+            // 1. Build the collection structure
+            collection.put("info", createInfo());
+            collection.put("item", createItems()); // This calls methods that might throw exceptions during data fetching/processing
+            collection.put("variable", createEnvironmentVariables());
+
+            // 2. Serialize the collection to JSON
+            String postmanCollectionJson = objectMapper.writeValueAsString(collection);
+
+            // 3. Call the processing service (THIS IS WHERE THE NonUniqueResultException LIKELY OCCURS)
+            try {
+                String processingResult = postmanProcessingService.processPostmanCollection(postmanCollectionJson);
+                // If service succeeds, return its result (adjust content type if needed)
+                return ResponseEntity.ok()
+                        .contentType(MediaType.TEXT_PLAIN) // Or APPLICATION_JSON if the result is JSON
+                        .body(processingResult);
+
+            } catch (Exception serviceException) { // Catch exceptions FROM THE SERVICE
+                // Log the detailed exception from the service
+                System.err.println("Erreur lors de l'appel à PostmanProcessingService: " + serviceException.getMessage());
+                // logger.error("Error calling PostmanProcessingService", serviceException); // Use logger if available
+
+                // Return a structured 500 error response
+                Map<String, Object> errorResponse = new HashMap<>();
+                errorResponse.put("timestamp", LocalDateTime.now().toString());
+                errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+                errorResponse.put("error", "Internal Server Error");
+                // Include the specific message if it's safe/useful for the client
+                errorResponse.put("message", "Erreur lors du traitement de la collection Postman dans le service: " + serviceException.getMessage());
+                errorResponse.put("path", "/postman/collection");
+
+                return ResponseEntity
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(errorResponse);
+            }
+
+        } catch (JsonProcessingException e) {
+            // Handle error during JSON serialization
+            System.err.println("Erreur lors de la génération JSON de la collection Postman : " + e.getMessage());
+            // logger.error("Error generating Postman collection JSON", e);
+            return createErrorResponse("Erreur lors de la génération JSON de la collection Postman : " + e.getMessage());
+
+        } catch (Exception e) {
+            // Handle any other unexpected error during collection *creation* (before service call)
+            System.err.println("Erreur inattendue lors de la création de la collection : " + e.getMessage());
+            // logger.error("Unexpected error during collection creation", e);
+            return createErrorResponse("Erreur inattendue lors de la création de la collection : " + e.getMessage());
+        }
+    }
+
+    // Helper method to create consistent error responses
+    private ResponseEntity<Map<String, Object>> createErrorResponse(String message) {
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("timestamp", LocalDateTime.now().toString());
+        errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        errorResponse.put("error", "Internal Server Error");
+        errorResponse.put("message", message);
+        errorResponse.put("path", "/postman/collection");
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(errorResponse);
+    }
+
+
+    // --- Methods for creating collection parts ---
+
+    private Map<String, Object> createInfo() {
+        return Map.of(
+                "name", "Banking App API",
+                "description", "API pour la gestion des comptes bancaires et des transactions.",
+                "schema", "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+        );
+    }
+
+    private List<Map<String, Object>> createItems() {
+        return apiRepository.findAll().stream()
+                .map(this::createApiItem)
+                .filter(Objects::nonNull) // Filter out null items if createApiItem could potentially return null
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> createApiItem(Api api) {
+        if (api == null) return null; // Basic null check
+        try {
+            Map<String, Object> apiItem = new HashMap<>();
+            apiItem.put("name", api.getPath() != null ? api.getPath() : "Unnamed API"); // Handle null path
+
+            List<Map<String, Object>> requests = new ArrayList<>();
+            Map<String, Object> requestContainer = new HashMap<>(); // Renamed to avoid confusion with Postman 'request' object
+            requestContainer.put("name", api.getDescription() != null ? api.getDescription() : "Unnamed Request"); // Handle null description
+            requestContainer.put("request", createRequest(api));
+            requestContainer.put("response", createResponses(api)); // Ensure this handles potential errors/nulls gracefully
+            requests.add(requestContainer);
+
+            apiItem.put("item", requests);
+            return apiItem;
+        } catch (Exception e) {
+            System.err.println("Error creating API item for API ID " + (api != null ? api.getId() : "null") + ": " + e.getMessage());
+            // logger.error("Error creating API item for API ID {}", (api != null ? api.getId() : "null"), e);
+            return null; // Return null if item creation fails
+        }
+    }
+
+    private Map<String, Object> createRequest(Api api) {
+        Map<String, Object> request = new HashMap<>();
+        request.put("method", api.getMethod() != null ? api.getMethod() : "GET"); // Handle null method
+        request.put("header", List.of(createHeader("Accept", "application/json"))); // Assuming createHeader is safe
+        request.put("url", createUrl(api)); // Assuming createUrl is safe or handles errors
+
+        if (api.getRequest_body() != null && !api.getRequest_body().isBlank()) { // Use isBlank() for better check
+            try {
+                request.put("body", createRequestBody(api));
+            } catch (Exception e) {
+                System.err.println("Error creating request body for API ID " + api.getId() + ": " + e.getMessage());
+                // logger.error("Error creating request body for API ID {}", api.getId(), e);
+                // Decide if you want to omit the body or add a placeholder
+            }
+        }
+        return request;
+    }
+
+    private Map<String, Object> createUrl(Api api) {
+        // Consider adding null checks for api.getPath()
+        String path = api.getPath() != null ? api.getPath() : "/";
+        String rawUrl = "{{baseUrl}}" + transformPathVariables(path); // transformPathVariables should handle its input
+        List<String> pathSegments = Arrays.asList(rawUrl.replace("{{baseUrl}}/", "").split("/"));
+        // Ensure pathSegments doesn't contain empty strings if the path starts/ends with / or has //
+        pathSegments = pathSegments.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+
+
+        Map<String, Object> url = new HashMap<>();
+        url.put("raw", rawUrl);
+        url.put("host", List.of("{{baseUrl}}"));
+        url.put("path", pathSegments);
+        try {
+            url.put("variable", createPathVariables(api)); // Wrap in try-catch if it can fail
+            url.put("query", createQueryParameters(api));   // Wrap in try-catch if it can fail
+        } catch (Exception e) {
+            System.err.println("Error creating URL variables/query params for API ID " + api.getId() + ": " + e.getMessage());
+            // logger.error("Error creating URL variables/query params for API ID {}", api.getId(), e);
+            url.put("variable", Collections.emptyList()); // Provide empty lists on error
+            url.put("query", Collections.emptyList());
+        }
+        return url;
+    }
+
+    private String transformPathVariables(String path) {
+        if (path == null) return "";
+        return path.replaceAll("\\{(.*?)\\}", ":$1");
+    }
+
+
+    private List<Map<String, Object>> createPathVariables(Api api) {
+        // This method seems robust already with its null checks and filtering
+        return apiParametersRepository.findByApiId(api.getId()).stream()
+                .filter(param -> param != null && "path".equals(param.getTypein()) && param.getName() != null) // Enhanced filter
+                .map(param -> {
+                    String name = param.getName();
+                    String description = param.getDescription();
+                    String dataType = param.getData_type() != null ? param.getData_type() : "string";
+                    if ("integer".equals(dataType)) {
+                        dataType = "long"; // Change integer to long
+                    }
+                    String finalDataType = dataType;
+
+                    Map<String, Object> paramMap = new HashMap<>();
+                    paramMap.put("key", name);
+                    paramMap.put("value", "<" + finalDataType + ">");
+                    if (description != null) {
+                        paramMap.put("description", description);
+                    }
+                    return paramMap;
+                })
+                // No need for filter(!isEmpty) or cast if map is always created
+                .collect(Collectors.toList());
+    }
+
+    private List<Map<String, Object>> createQueryParameters(Api api) {
+        // Add null checks inside the map creation for safety
+        return apiParametersRepository.findByApiId(api.getId()).stream()
+                .filter(param -> param != null && "query".equals(param.getTypein()) && param.getName() != null) // Enhanced filter
+                .map(param -> {
+                    Map<String, Object> queryMap = new HashMap<>();
+                    queryMap.put("key", param.getName());
+                    // Ensure example is treated as Object, handle null example
+                    queryMap.put("value", param.getExample() != null ? (Object) param.getExample() : "");
+                    if (param.getDescription() != null) {
+                        queryMap.put("description", param.getDescription());
+                    }
+                    return queryMap;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> createRequestBody(Api api) {
+        // This method already has a try-catch, which is good.
+        Map<String, Object> body = new HashMap<>();
+        body.put("mode", "raw");
+
+        try {
+            JsonNode requestBodyNode = objectMapper.readTree(api.getRequest_body());
+            // Ensure transform doesn't throw unhandled exceptions
+            String rawBody = transformJsonSchemaToSimplifiedFormatForRequestBody(requestBodyNode, true);
+            body.put("raw", rawBody); // Put transformed raw body
+
+        } catch (Exception e) {
+            System.err.println("Error processing request body for API ID " + api.getId() + ": " + e.getMessage());
+            // logger.error("Error processing request body for API ID {}", api.getId(), e);
+            // Fallback to original string or empty object? Decide based on requirements.
+            body.put("raw", "{\n  \"error\": \"Could not process schema\",\n  \"original_body\": "
+                    + (api.getRequest_body() != null ? "\""+api.getRequest_body().replace("\"", "\\\"")+"\"" : "null")
+                    + "\n}");
+        }
+
+        Map<String, Object> options = new HashMap<>();
+        Map<String, Object> rawOptions = new HashMap<>();
+        rawOptions.put("language", "json");
+        options.put("raw", rawOptions);
+        body.put("options", options);
+
+        return body;
+    }
+
+
+    private List<Map<String, Object>> createResponses(Api api) {
+        try {
+            return apiResponseRepository.findByApiId(api.getId()).stream()
+                    .map(this::createResponse) // createResponse already handles "default" and parsing errors by returning null
+                    .filter(Objects::nonNull) // <<< IMPORTANT: Filter out null responses
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            System.err.println("Error fetching/processing responses for API ID " + api.getId() + ": " + e.getMessage());
+            // logger.error("Error fetching/processing responses for API ID {}", api.getId(), e);
+            return Collections.emptyList(); // Return empty list on error
+        }
+    }
+
+    // createResponse method - THIS IS ALREADY CORRECTED from previous steps
+    // to handle "default" and NumberFormatException by returning null.
+    private Map<String, Object> createResponse(ApiResponse apiResponse) {
+        if (apiResponse == null || apiResponse.getStatus() == null) {
+            // System.err.println("Warning: Skipping response due to null ApiResponse or null status."); // Maybe too verbose
+            return null;
+        }
+        String statusString = apiResponse.getStatus().trim();
+        if ("default".equalsIgnoreCase(statusString)) {
+            // System.out.println("Info: Ignoring response with status 'default'"); // Maybe too verbose
+            return null;
+        }
+        int statusCode;
+        String statusText;
+        try {
+            String statusCodePart = statusString.split(" ")[0];
+            statusCode = Integer.parseInt(statusCodePart);
+            statusText = getPostmanStatusText(statusCode);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.err.println("Error: Could not parse status code from '" + statusString + "'. Skipping this response.");
+            return null;
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("name", apiResponse.getDescription() != null ? apiResponse.getDescription() : statusString);
+        response.put("status", statusText);
+        response.put("code", statusCode);
+        response.put("_originalStatus", statusString);
+        response.put("header", List.of(createHeader("Content-Type", "application/json"))); // Assuming safe
+
+        String responseBody = "{}";
+        Schema schema = apiResponse.getSchema(); // Get Schema object from ApiResponse
+        // Check if the related Schema object and its content exist
+        if (schema != null && schema.getSchemas() != null && !schema.getSchemas().isBlank()) {
+            try {
+                JsonNode schemaNode = objectMapper.readTree(schema.getSchemas());
+                responseBody = transformJsonSchemaToSimplifiedFormat(schemaNode, true); // Assuming safe
+            } catch (Exception e) {
+                System.err.println("Error processing response schema for status '" + statusString + "' (Schema ID: " + schema.getId() + "): " + e.getMessage() + ". Using default empty body.");
+            }
+        } else {
+            // Optionally log if schema is expected but missing
+            // System.out.println("Info: No schema content found for response status '" + statusString + "'. Using default empty body.");
+        }
+        response.put("body", responseBody);
+        return response;
+    }
+
+
+    // transformJsonSchemaToSimplifiedFormatForRequestBody - Seems okay, includes try-catch
+    private String transformJsonSchemaToSimplifiedFormatForRequestBody(JsonNode schemaNode, boolean prettyPrint) {
+        // ... (keep existing implementation with try-catch) ...
+        try {
+            if (schemaNode != null && schemaNode.has("properties")) {
+                ObjectNode processedNode = processJsonNodeForRequestBody(schemaNode.get("properties"));
+                if (prettyPrint) {
+                    return prettyPrintJson(processedNode);
+                } else {
+                    return objectMapper.writeValueAsString(processedNode);
+                }
+            } else {
+                return "{}"; // Return empty if no properties
+            }
+        } catch (Exception e) {
+            System.err.println("Error in transformJsonSchemaToSimplifiedFormatForRequestBody: " + e.getMessage());
+            return "{}"; // Fallback on error
+        }
+    }
+
+    // transformJsonSchemaToSimplifiedFormat - Includes try-catch, calls resolveRef
+    private String transformJsonSchemaToSimplifiedFormat(JsonNode schemaNode, boolean prettyPrint) {
+        // ... (keep existing implementation with try-catch and resolveRef call) ...
+        try {
+            if (schemaNode == null) return "{}"; // Handle null input
+
+            if (schemaNode.has("$ref")) {
+                JsonNode resolvedSchema = resolveRef(schemaNode.get("$ref").asText()); // resolveRef handles its errors
+                if (resolvedSchema != null) {
+                    // Recursive call ONLY if resolvedSchema is not the same as schemaNode to prevent infinite loops on self-refs
+                    if (resolvedSchema != schemaNode) {
+                        return transformJsonSchemaToSimplifiedFormat(resolvedSchema, prettyPrint);
+                    } else {
+                        System.err.println("Warning: Detected potential self-reference loop in $ref: " + schemaNode.get("$ref").asText());
+                        return "<object: self-reference>";
+                    }
+                } else {
+                    System.err.println("Warning: $ref resolution failed for: " + schemaNode.get("$ref").asText());
+                    return "<object: unresolved-ref>";
+                }
+            } else if (schemaNode.has("properties")) {
+                ObjectNode processedNode = processJsonNode(schemaNode.get("properties")); // processJsonNode should handle errors
+                if (prettyPrint) {
+                    return prettyPrintJson(processedNode); // prettyPrintJson can throw JsonProcessingException
+                } else {
+                    return objectMapper.writeValueAsString(processedNode);
+                }
+            } else {
+                // Handle cases where it's not a ref and has no properties (e.g., simple type, array)
+                // You might want to add more logic here based on schemaNode.getNodeType()
+                return "{}"; // Default for now
+            }
+        } catch (JsonProcessingException e) {
+            System.err.println("Error pretty printing/serializing JSON in transformJsonSchemaToSimplifiedFormat: " + e.getMessage());
+            return "{}";
+        } catch (Exception e) {
+            System.err.println("Unexpected error in transformJsonSchemaToSimplifiedFormat: " + e.getMessage());
+            return "{}"; // General fallback
+        }
+    }
+
+    // prettyPrintJson - Already throws, caught by caller
+    private String prettyPrintJson(JsonNode jsonNode) throws JsonProcessingException {
+        // ... (keep existing implementation) ...
+        if (jsonNode == null) return "null";
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode);
+    }
+
+    // processJsonNodeForRequestBody - Seems okay, operates on structure
+    private ObjectNode processJsonNodeForRequestBody(JsonNode node) {
+        // ... (keep existing implementation - consider adding null check for `node`) ...
+        ObjectNode result = objectMapper.createObjectNode();
+        if (node == null || !node.isObject()) {
+            return result; // Return empty if input is null or not an object
+        }
+        // Rest of the logic...
+        node.fields().forEachRemaining(entry -> {
+            String fieldName = entry.getKey();
+            JsonNode fieldValue = entry.getValue();
+            // ... existing switch logic ...
+        });
+        return result;
+    }
+
+
+    // processJsonNode - Seems okay, operates on structure, calls resolveRef
+    private ObjectNode processJsonNode(JsonNode node) {
+        // ... (keep existing implementation - consider adding null check for `node`) ...
+        ObjectNode result = objectMapper.createObjectNode();
+        if (node == null || !node.isObject()) {
+            return result; // Return empty if input is null or not an object
+        }
+        // Rest of the logic...
+        node.fields().forEachRemaining(entry -> {
+            // ... existing logic including $ref handling and switch ...
+        });
+        return result;
+    }
+
+    // getPostmanStatusText - Simple mapping, seems safe
+    private String getPostmanStatusText(int statusCode) {
+        // ... (keep existing implementation) ...
+        switch (statusCode) {
+            case 200: return "OK";
+            // ... other cases
+            default: return "Unknown Status";
+        }
+    }
+
+    // createEnvironmentVariables - Simple static data, seems safe
+    private List<Map<String, String>> createEnvironmentVariables() {
+        return List.of(Map.of("key", "baseUrl", "value", "http://localhost:8084", "description", "URL de base de l'API"));
+    }
+
+    // createHeader - Simple static data, seems safe
+    private Map<String, String> createHeader(String key, String value) {
+        // Consider making this return Map<String, Object> if Postman spec requires it
+        return Map.of("key", key, "value", value);
+    }
+
+    // resolveRef - Already includes try-catch and handles list, seems okay for now
+    // (but remember the warning about multiple schemas with the same name)
+    private JsonNode resolveRef(String ref) {
+        // ... (keep existing implementation with try-catch and schemas.get(0)) ...
+        if (ref == null || ref.isBlank()) {
+            System.err.println("Error: Invalid $ref string: null or empty.");
+            return null;
+        }
+        String schemaName = null; // Initialize
+        try {
+            String[] parts = ref.split("/");
+            if (parts.length == 0) { // Check if split produced anything
+                System.err.println("Error: Invalid $ref format, cannot extract schema name: " + ref);
+                return null;
+            }
+            schemaName = parts[parts.length - 1];
+            if (schemaName.isBlank()) { // Check if the last part is empty
+                System.err.println("Error: Invalid $ref format, extracted schema name is blank: " + ref);
+                return null;
+            }
+
+            List<Schema> schemas = schemaRepository.findByName(schemaName);
+            if (schemas.isEmpty()) {
+                System.err.println("Warning: Schema not found for name: " + schemaName + " ($ref: " + ref + ")");
+                return null; // Or objectMapper.createObjectNode(); ?
+            }
+            if (schemas.size() > 1) {
+                System.err.println("Warning: Multiple schemas found for name '" + schemaName + "' ($ref: " + ref + "). Using the first one found.");
+            }
+
+            Schema schemaToUse = schemas.get(0);
+            if (schemaToUse.getSchemas() == null || schemaToUse.getSchemas().isBlank()) {
+                System.err.println("Warning: Schema content is null or empty for $ref: " + ref + " (name: " + schemaName + ")");
+                // Return empty node instead of null to avoid NPEs in the caller
+                return objectMapper.createObjectNode();
+            }
+            // Parse the JSON content
+            return objectMapper.readTree(schemaToUse.getSchemas());
+
+        } catch (JsonProcessingException e) {
+            System.err.println("Error processing JSON from schema " + schemaName + " ($ref: " + ref + "): " + e.getMessage());
+            return null; // Or objectMapper.createObjectNode();
+        } catch (IOException e) { // Catch IOException specifically if readTree throws it
+            System.err.println("IO Error reading JSON from schema " + schemaName + " ($ref: " + ref + "): " + e.getMessage());
+            return null; // Or objectMapper.createObjectNode();
+        } catch (Exception e) { // Catch any other unexpected error
+            System.err.println("Unexpected error resolving $ref: " + ref + " (Schema Name: " + schemaName + "): " + e.getClass().getName() + " - " + e.getMessage());
+            return null; // Or objectMapper.createObjectNode();
+        }
+    }
+}*/

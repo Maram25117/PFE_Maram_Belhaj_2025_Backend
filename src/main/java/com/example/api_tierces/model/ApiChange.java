@@ -17,11 +17,15 @@ public class ApiChange {
     @Column(nullable = false)
     private LocalDateTime temps;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String donneeChange;
+
     public ApiChange() {}
 
-    public ApiChange(String changement, LocalDateTime temps) {
+    public ApiChange(String changement, LocalDateTime temps, String donneeChange) {
         this.changement = changement;
         this.temps = temps;
+        this.donneeChange = donneeChange;
     }
 
     public Long getId() {
@@ -47,5 +51,12 @@ public class ApiChange {
     public void setTemps(LocalDateTime temps) {
         this.temps = temps;
     }
-}
 
+    public String getDonneeChange() {
+        return donneeChange;
+    }
+
+    public void setDonneeChange(String donneeChange) {
+        this.donneeChange = donneeChange;
+    }
+}

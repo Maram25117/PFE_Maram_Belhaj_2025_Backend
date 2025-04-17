@@ -30,7 +30,7 @@ public class FileUploadController {
     private UploadService apiService;
 
     // Tâche planifiée qui s'exécute toutes les 10 secondes
-    @Scheduled(cron = "0 0 */6 * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void scheduleSwaggerProcessing() {
         try {
             // Appelez directement la méthode du service pour traiter Swagger
@@ -42,7 +42,7 @@ public class FileUploadController {
     }
 
     // Méthode pour appeler manuellement l'URL si nécessaire (en option)
-    @Operation(summary = "Upload un fichier swagger via url", description = "Permet d'uploader un fichier Swagger pour le traitement.")
+   /* @Operation(summary = "Upload un fichier swagger via url", description = "Permet d'uploader un fichier Swagger pour le traitement.")
     @GetMapping("/process-swagger-url")
     public ResponseEntity<String> processSwaggerFromUrl(@RequestParam("url") String swaggerUrl) {
         try {
@@ -71,5 +71,5 @@ public class FileUploadController {
         } catch (IOException e) {
             return "Erreur lors du traitement du fichier : " + e.getMessage();
         }
-    }
+    }*/
 }

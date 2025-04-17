@@ -45,12 +45,12 @@ public class NewmanService {
           /*try {
                ProcessBuilder processBuilder = new ProcessBuilder( //Utilisation de ProcessBuilder pour exécuter Newman via la ligne de commande.
                        "C:\\Users\\LENOVO\\AppData\\Roaming\\npm\\newman.cmd", // Chemin vers Newman.
-                       "run", "postman_collection.json" //Exécute la collection de tests Postman Reqres_API.
+                       "run", "" //Exécute la collection de tests Postman Reqres_API.
                );*/
         /*try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+            // Récupérer le chemin absolu du fichier  dans le dossier resources
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("").toURI());
 
             ProcessBuilder processBuilder = new ProcessBuilder(
                     "C:\\Users\\LENOVO\\AppData\\Roaming\\npm\\newman.cmd",
@@ -226,6 +226,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
@@ -252,9 +253,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -497,9 +498,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -702,9 +703,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -908,9 +909,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -1089,9 +1090,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -1286,9 +1287,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -1470,9 +1471,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -1675,9 +1676,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -1858,9 +1859,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -2058,9 +2059,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -2291,9 +2292,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -2498,9 +2499,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -2708,9 +2709,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -2943,9 +2944,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -3178,9 +3179,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -3385,9 +3386,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier Postman : " + file.getAbsolutePath());
 
@@ -3557,9 +3558,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -3788,9 +3789,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -4027,9 +4028,9 @@ public class NewmanService {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin absolu du fichier postman_collection.json dans le dossier resources
+
             ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("postman_collection.json").toURI());
+            File file = new File(classLoader.getResource("p_c.json").toURI());
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
 
@@ -4258,7 +4259,7 @@ public class NewmanService {
     }
 }*/
 /* codeeeee hedhaaaaaaa cvvvvvvv */
-@Service
+/*@Service
 public class NewmanService {
 
     private final ApiMonitoringRepository resultRepository;
@@ -4269,15 +4270,15 @@ public class NewmanService {
         System.out.println("NewmanService créé avec le repository : " + resultRepository);
     }
 
-    @Scheduled(cron = "0 0 */6 * * *") // Exécution toutes les minutes
+    @Scheduled(cron = "0 0 * * * *") // Exécution toutes les minutes
     public void runNewmanTests() {
         System.out.println("Début de l'exécution des tests Newman.");
 
         try {
-            // Récupérer le chemin du fichier postman_collection.json dans le dossier resources
+            // Récupérer le chemin du fichier p_c.json dans le dossier resources
             ClassLoader classLoader = getClass().getClassLoader(); //retourne la classe actuelle.
             File file = new File(classLoader.getResource("postman_collection.json").toURI());
-            //Cette méthode cherche le fichier "postman_collection.json" dans les ressources du projet.
+            //Cette méthode cherche le fichier "p_c.json" dans les ressources du projet.
             //Elle retourne une URL pointant vers ce fichier.
 
             System.out.println("Chemin du fichier de collection Postman : " + file.getAbsolutePath());
@@ -4490,4 +4491,1187 @@ public class NewmanService {
             System.out.println("Erreur lors de l'enregistrement pour : " + path + ": " + e.getMessage());
         }
     }
+}*/
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
+import io.micrometer.core.instrument.Tags;
+// Removed import for @Value: import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+// Assuming ApiMonitoring and ApiMonitoringRepository are defined in correct packages
+// import com.example.api_tierces.model.ApiMonitoring;
+// import com.example.api_tierces.repository.ApiMonitoringRepository;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
+import io.micrometer.core.instrument.Tags;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.concurrent.atomic.AtomicLong;
+// Imports nécessaires
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+// Assurez-vous que ces imports pointent vers vos classes réelles
+// import com.example.api_tierces.model.ApiMonitoring;
+// import com.example.api_tierces.repository.ApiMonitoringRepository;
+
+/*code cv rbatnaaaa l metriqueeee b prometheussss */
+/*@Service
+public class NewmanService { // *** NOM DE CLASSE CORRECT ***
+
+    // --- Dependencies ---
+    private final ApiMonitoringRepository resultRepository;
+    private final MeterRegistry meterRegistry;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    // --- Metric State Storage ---
+    private final Map<String, TestMetricData> latestTestMetrics = new ConcurrentHashMap<>();
+
+    private record TestMetricData(
+            AtomicLong responseTimeMs,
+            AtomicInteger statusCode,
+            AtomicInteger success // 1 = test script passed, 0 = test script failed or error
+    ) {
+        TestMetricData() {
+            this(new AtomicLong(0), new AtomicInteger(0), new AtomicInteger(0));
+        }
+    }
+
+    // --- Constructor Injection ---
+    public NewmanService(ApiMonitoringRepository resultRepository, MeterRegistry meterRegistry) { // *** NOM CONSTRUCTEUR CORRIGÉ ***
+        this.resultRepository = resultRepository;
+        this.meterRegistry = meterRegistry;
+        // Log message mis à jour
+        System.out.println("NewmanService créé avec le repository : " + resultRepository + " et MeterRegistry: " + meterRegistry);
+    }
+
+    // --- Scheduled Newman Execution ---
+    @Scheduled(cron = "${newman.schedule.cron:0 * * * * *}") // Exécution toutes les minutes par défaut
+    public void runScheduledNewmanTests() {
+        System.out.println("Début de l'exécution planifiée des tests Newman.");
+        String defaultCollectionResourceName = "postman_collection.json";
+
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource(defaultCollectionResourceName).toURI());
+            System.out.println("Utilisation de la collection planifiée : " + file.getAbsolutePath());
+            executeNewmanAndProcessResults(file.getAbsolutePath());
+        } catch (URISyntaxException | NullPointerException e) {
+            System.err.println("Erreur critique: Impossible de trouver ou charger le fichier de collection par défaut '" + defaultCollectionResourceName + "' dans les ressources: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "resource_not_found")).increment();
+        } catch (Exception e) {
+            System.err.println("Erreur inattendue lors de la préparation de l'exécution planifiée: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "setup_error")).increment();
+        }
+        System.out.println("Fin de l'exécution planifiée des tests Newman.");
+    }
+
+    // --- Manual Processing from JSON String ---
+    // Cette méthode est optionnelle si vous n'en avez pas besoin via un Controller
+    public String processPostmanCollection(String postmanCollectionJson) {
+        System.out.println("Début du traitement manuel de la collection Postman fournie.");
+        Path tempFilePath = null;
+        try {
+            tempFilePath = Files.createTempFile("postman_manual_", ".json");
+            System.out.println("Fichier temporaire créé : " + tempFilePath.toString());
+            Files.writeString(tempFilePath, postmanCollectionJson, StandardOpenOption.WRITE);
+            // executeNewmanAndProcessResults utilise le chemin Newman hardcodé
+            boolean success = executeNewmanAndProcessResults(tempFilePath.toAbsolutePath().toString());
+            return success ? "Collection traitée avec succès." : "Collection traitée avec des erreurs (voir logs).";
+        } catch (IOException e) {
+            System.err.println("Erreur I/O lors de la création/écriture du fichier temporaire: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "temp_file_io")).increment();
+            return "Erreur I/O lors de la préparation du traitement : " + e.getMessage();
+        } catch (Exception e) {
+            System.err.println("Erreur inattendue lors du traitement manuel de la collection: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "unknown_manual")).increment();
+            return "Erreur inattendue lors du traitement : " + e.getMessage();
+        } finally {
+            if (tempFilePath != null) {
+                try { Files.deleteIfExists(tempFilePath); System.out.println("Fichier temporaire supprimé : " + tempFilePath.toString()); }
+                catch (IOException e) { System.err.println("Attention : Impossible de supprimer le fichier temporaire : " + tempFilePath + " - " + e.getMessage()); }
+            }
+            System.out.println("Fin du traitement manuel de la collection Postman fournie.");
+        }
+    }
+
+    // --- Common Newman Execution and Result Processing Logic ---
+    private boolean executeNewmanAndProcessResults(String collectionPath) throws IOException, InterruptedException, Exception {
+        System.out.println("Exécution de Newman pour la collection : " + collectionPath);
+        List<ParsedResult> currentRunResults = new ArrayList<>();
+        boolean processSuccess = false;
+
+        String hardcodedNewmanCommandPath = "C:\\Users\\LENOVO\\AppData\\Roaming\\npm\\newman.cmd";
+        System.out.println("Utilisation du chemin Newman hardcodé : " + hardcodedNewmanCommandPath);
+
+        ProcessBuilder processBuilder = new ProcessBuilder(
+                hardcodedNewmanCommandPath, "run", collectionPath, "--reporters", "cli"
+        );
+        processBuilder.redirectErrorStream(true);
+        Process process = processBuilder.start();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            parseNewmanOutput(reader, currentRunResults);
+        }
+
+        int exitCode = process.waitFor();
+        System.out.println(exitCode == 0 ? "Processus Newman terminé avec succès (code 0)." : "Processus Newman terminé avec des erreurs (code " + exitCode + ").");
+        processSuccess = (exitCode == 0);
+
+        updatePersistenceAndMetrics(currentRunResults);
+
+        if (!processSuccess || currentRunResults.isEmpty()) {
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", processSuccess ? "parsing_failure" : "newman_exit_code")).increment();
+        }
+        return processSuccess;
+    }
+
+    // --- Newman Output Parsing Logic ---
+    private void parseNewmanOutput(BufferedReader reader, List<ParsedResult> results) throws Exception {
+        String line;
+        ParsedResult currentResult = null;
+        StringBuilder errorMessageBuilder = new StringBuilder();
+        boolean inErrorBlock = false;
+        boolean hasNumDotError = false;
+        boolean expectingRequestDetails = false;
+
+        Pattern requestLinePattern = Pattern.compile("^\\s*(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+(https?://[^\\s]+)\\s+\\[(.*?)\\]");
+        Pattern statusPattern = Pattern.compile("(\\d{3})\\s+[^,]+,\\s+[^,]+,\\s+(\\d+)ms");
+
+        while ((line = reader.readLine()) != null) {
+            // Traitement ligne GET/POST/... attendue
+            if (currentResult != null && expectingRequestDetails) {
+                expectingRequestDetails = false;
+                Matcher requestMatcher = requestLinePattern.matcher(line);
+                if (requestMatcher.find()) {
+                    // Extraction OK... (code identique à la version précédente)
+                    currentResult.httpMethod = requestMatcher.group(1);
+                    String fullUrl = requestMatcher.group(2);
+                    String statusAndTimePart = requestMatcher.group(3);
+                    try {
+                        URI uri = new URI(fullUrl);
+                        currentResult.path = uri.getPath();
+                        if (uri.getQuery() != null) currentResult.path += "?" + uri.getQuery();
+
+                        if (line.contains("[errored]")) { // Erreur Newman
+                            currentResult.statusCode = 0; currentResult.responseTime = 0;
+                            errorMessageBuilder.append("Request Errored: ").append(line.trim());
+                            inErrorBlock = true;
+                        } else { // Extraction Status/Temps
+                            Matcher statusMatcher = statusPattern.matcher(statusAndTimePart);
+                            if (statusMatcher.find()) {
+                                currentResult.statusCode = Integer.parseInt(statusMatcher.group(1));
+                                currentResult.responseTime = Long.parseLong(statusMatcher.group(2));
+                            } else {
+                                System.err.println("  Impossible d'extraire status/temps de : " + statusAndTimePart + " pour " + currentResult.apiName + " sur la ligne: " + line);
+                                currentResult.statusCode = 0; currentResult.responseTime = 0;
+                                errorMessageBuilder.append("Erreur parsing Status/Temps sur ligne attendue: ").append(line.trim());
+                                inErrorBlock = true;
+                            }
+                        }
+                    } catch (Exception e) { // Erreur parsing URL
+                        System.err.println("  Erreur lors de l'extraction du path/status depuis : " + line + " pour " + currentResult.apiName + " - " + e.getMessage());
+                        currentResult.path = "Unknown Path";
+                        errorMessageBuilder.append("Erreur parsing URL/Status: ").append(e.getMessage());
+                        inErrorBlock = true;
+                    }
+                } else { // Mauvais format après '└'
+                    System.err.println("  Format inattendu pour la ligne de détails de requête attendue: " + line + " pour " + currentResult.apiName);
+                    if (currentResult.path == null) currentResult.path = "Unknown Path";
+                    errorMessageBuilder.append("Format de ligne de requête (après └) inattendu: ").append(line.trim());
+                    inErrorBlock = true;
+                }
+                // Début nouveau test
+            } else if (line.trim().startsWith("□ ") || line.trim().startsWith("→ ")) {
+                if (currentResult != null) finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+                currentResult = new ParsedResult();
+                currentResult.apiName = line.substring(line.indexOf(" ")).trim();
+                errorMessageBuilder.setLength(0);
+                inErrorBlock = false;
+                hasNumDotError = false; // Réinitialisation importante
+                expectingRequestDetails = false;
+                // Ligne '└'
+            } else if (currentResult != null && line.trim().startsWith("└")) {
+                expectingRequestDetails = true;
+                // Ligne assertion passée '√'
+            } else if (line.trim().startsWith("√") && currentResult != null) {
+                // Pas d'action nécessaire
+                // Ligne erreur d'assertion '1.', '2.', etc.
+            } else if (currentResult != null) {
+                Pattern errorPattern = Pattern.compile("^\\s*\\d+\\.\\s+(.*)");
+                Matcher errorMatcher = errorPattern.matcher(line);
+                if (errorMatcher.find()) {
+                    if (!hasNumDotError) errorMessageBuilder.append("Assertion Errors:\n");
+                    errorMessageBuilder.append("  - ").append(errorMatcher.group(1).trim()).append("\n");
+                    inErrorBlock = true;
+                    hasNumDotError = true; // Indique un échec de script
+                } else if (inErrorBlock && line.trim().length() > 0 && !line.trim().matches("^[┌│├└].*")) {
+                    errorMessageBuilder.append("    ").append(line.trim()).append("\n");
+                }
+            }
+        } // Fin while
+
+        // Traiter le dernier résultat
+        if (currentResult != null) {
+            finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+        }
+    }
+
+    // --- Helper pour finaliser et déterminer le succès (Logique Corrigée) ---
+    private void finalizeAndAddResult(ParsedResult result, boolean hasNumDotError, StringBuilder errorMsgBuilder, List<ParsedResult> resultsList) {
+        if (result.path == null || result.httpMethod == null) {
+            System.err.println("Skipping result for API '" + result.apiName + "' due to missing path or method.");
+            if (errorMsgBuilder.length() > 0) System.err.println("  Captured error context: " + errorMsgBuilder.toString());
+            return;
+        }
+
+        // --- LOGIQUE DE SUCCES BASÉE SUR LES ASSERTIONS ---
+        if ("Unknown Path".equals(result.path) || errorMsgBuilder.toString().contains("Request Errored")) {
+            result.success = false; // Echec fondamental
+            if (errorMsgBuilder.length() == 0) errorMsgBuilder.append("Request failed during setup or parsing.");
+        } else if (hasNumDotError) {
+            result.success = false; // Echec des scripts de test Postman
+            // errorMsgBuilder contient déjà les détails
+        } else {
+            result.success = true; // Aucune erreur d'assertion détectée = Succès du test
+            // Nettoyage optionnel des messages d'erreur par défaut si le test réussit
+            String currentError = errorMsgBuilder.toString();
+            if (currentError.startsWith("Request failed with status code:") || currentError.startsWith("Unexpected status code:")) {
+                errorMsgBuilder.setLength(0);
+            }
+        }
+        // --- FIN LOGIQUE ---
+
+        result.errorMessage = errorMsgBuilder.toString().trim();
+
+        System.out.println("Résultat finalisé: Path=" + result.path + ", Method=" + result.httpMethod +
+                ", Success=" + result.success + // <= Reflète le succès du script Postman
+                ", Status=" + result.statusCode + ", Time=" + result.responseTime + "ms" +
+                (result.errorMessage.isEmpty() ? "" : ", Error=Present"));
+
+        resultsList.add(result);
+    }
+
+    // --- Update DB and Metrics ---
+    private void updatePersistenceAndMetrics(List<ParsedResult> results) {
+        LocalDateTime now = LocalDateTime.now();
+        final long nowEpochSeconds = now.atZone(ZoneId.systemDefault()).toEpochSecond();
+
+        System.out.println("Traitement de " + results.size() + " résultats parsés.");
+        if (results.isEmpty()) {
+            System.out.println("Aucun résultat valide n'a été parsé depuis la sortie de Newman.");
+        }
+
+        for (ParsedResult result : results) {
+            if ("Unknown Path".equals(result.path) || result.httpMethod == null) {
+                System.out.println("Ignorer la mise à jour pour un résultat incomplet : " + result.apiName);
+                continue;
+            }
+            updateMetricsForResult(result);
+            if (resultRepository != null) {
+                persistResult(result, now);
+            }
+        }
+
+        Gauge.builder("newman_run_last_completion_timestamp_seconds", () -> nowEpochSeconds)
+                .description("Unix timestamp of the last completed Newman run processing")
+                .register(meterRegistry);
+    }
+
+
+    // --- Metrics Update Logic ---
+    private void updateMetricsForResult(ParsedResult result) {
+        String metricKey = result.httpMethod + ":" + result.path;
+        Tags tags = Tags.of(
+                Tag.of("path", result.path),
+                Tag.of("method", result.httpMethod),
+                Tag.of("api_name", result.apiName != null ? result.apiName : "unknown")
+        );
+        TestMetricData metricData = latestTestMetrics.computeIfAbsent(metricKey, k -> {
+            TestMetricData newData = new TestMetricData();
+            Gauge.builder("newman_test_response_time_ms", newData.responseTimeMs::get).tags(tags).description("Response time in milliseconds for the Newman test").register(meterRegistry);
+            Gauge.builder("newman_test_status_code", newData.statusCode::get).tags(tags).description("HTTP status code for the Newman test").register(meterRegistry);
+            // Description de la métrique de succès mise à jour
+            Gauge.builder("newman_test_success", newData.success::get).tags(tags).description("Indicates if the Postman test script passed (1) or failed (0)").register(meterRegistry);
+            System.out.println("Registered new metrics for: " + k);
+            return newData;
+        });
+        metricData.responseTimeMs().set(result.responseTime);
+        metricData.statusCode().set(result.statusCode); // Stocke le code HTTP réel
+        metricData.success().set(result.success ? 1 : 0); // Stocke le succès basé sur les assertions
+    }
+
+    // --- Database Persistence Logic ---
+    @Transactional
+    protected void persistResult(ParsedResult parsedResult, LocalDateTime timestamp) {
+        if ("Unknown Path".equals(parsedResult.path)) {
+            System.out.println("Ignorer l'enregistrement DB pour Unknown Path");
+            return;
+        }
+        try {
+            // Level basé sur le succès des assertions
+            String level = !parsedResult.success ? "ERROR" : "INFO";
+
+            ObjectNode metadata = objectMapper.createObjectNode();
+            metadata.put("path", parsedResult.path);
+            metadata.put("method", parsedResult.httpMethod);
+            String metadataString = metadata.toString();
+
+            Optional<ApiMonitoring> existingResult = resultRepository.findByMetadata(metadataString);
+            ApiMonitoring dbRecord;
+            if (existingResult.isPresent()) {
+                dbRecord = existingResult.get();
+            } else {
+                dbRecord = new ApiMonitoring();
+                dbRecord.setPath(parsedResult.path);
+                dbRecord.setMetadata(metadataString);
+                System.out.println("Création d'un nouvel enregistrement DB pour : " + parsedResult.path + " (" + parsedResult.httpMethod + ")");
+            }
+
+            dbRecord.setTemps(timestamp);
+            dbRecord.setResponseTime(parsedResult.responseTime);
+            dbRecord.setStatusCode(parsedResult.statusCode); // Code HTTP réel
+            dbRecord.setErrorMessage(parsedResult.errorMessage.isEmpty() ? null : parsedResult.errorMessage); // Erreurs d'assertion ou autres
+            dbRecord.setLevel(level); // INFO/ERROR basé sur le succès du script
+
+            resultRepository.save(dbRecord);
+
+        } catch (Exception e) {
+            System.err.println("Erreur lors de l'enregistrement DB pour : " + parsedResult.path + " (" + parsedResult.httpMethod + "): " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // --- Helper Class for Parsed Results ---
+    private static class ParsedResult {
+        String apiName; String path; String httpMethod;
+        boolean success = false; // Déterminé par les assertions
+        int statusCode = 0;      // Code HTTP réel
+        long responseTime = 0;   // Temps réel
+        String errorMessage = "";// Erreurs d'assertion ou de parsing
+    }
+
+    // --- Entity and Repository Placeholders ---
+    // (Assurez-vous qu'ils sont définis ailleurs)
+    // public class ApiMonitoring { ... }
+    // public interface ApiMonitoringRepository extends JpaRepository<...> { ... }
+}*/
+
+// --- Imports ---
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
+import io.micrometer.core.instrument.Tags;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong; // Nécessaire pour le timestamp
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+// Assurez-vous que ces imports pointent vers vos classes réelles d'entité et repository
+// import com.example.api_tierces.model.ApiMonitoring;
+// import com.example.api_tierces.repository.ApiMonitoringRepository;
+
+@Service
+public class NewmanService { // Nom de classe correct
+
+    // --- Dépendances ---
+    private final ApiMonitoringRepository resultRepository; // Assurez-vous que l'import est correct
+    private final MeterRegistry meterRegistry;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    // --- Stockage état métriques ---
+    // Pour les métriques par test (chemin+méthode)
+    private final Map<String, TestMetricData> latestTestMetrics = new ConcurrentHashMap<>();
+    // Pour le timestamp de la dernière exécution (corrigé pour éviter WARN)
+    private final AtomicLong lastCompletionTimestamp = new AtomicLong(0);
+
+    // --- Record pour les données de métrique par test ---
+    private record TestMetricData(
+            AtomicLong responseTimeMs,
+            AtomicInteger statusCode, // Stocke le code HTTP réel
+            AtomicInteger success     // 1 = script de test Postman OK, 0 = échec script ou erreur
+    ) {
+        TestMetricData() {
+            this(new AtomicLong(0), new AtomicInteger(0), new AtomicInteger(0));
+        }
+    }
+
+    // --- Constructeur ---
+    public NewmanService(ApiMonitoringRepository resultRepository, MeterRegistry meterRegistry) { // Nom constructeur corrigé
+        this.resultRepository = resultRepository;
+        this.meterRegistry = meterRegistry;
+        System.out.println("NewmanService créé avec le repository : " + resultRepository + " et MeterRegistry: " + meterRegistry);
+
+        // Enregistrement du Gauge de timestamp une seule fois ici
+        Gauge.builder("newman_run_last_completion_timestamp_seconds", this.lastCompletionTimestamp::get)
+                .description("Unix timestamp du dernier traitement complet des tests Newman")
+                .register(meterRegistry);
+        System.out.println("Gauge 'newman_run_last_completion_timestamp_seconds' enregistré.");
+    }
+
+    // --- Exécution Planifiée Newman ---
+    @Scheduled(cron = "${newman.schedule.cron:* * * * * *}")
+    public void runScheduledNewmanTests() {
+        System.out.println("Début de l'exécution planifiée des tests Newman.");
+        String defaultCollectionResourceName = "postman_collection.json"; // Nom du fichier dans resources
+
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource(defaultCollectionResourceName).toURI());
+            System.out.println("Utilisation de la collection planifiée : " + file.getAbsolutePath());
+            // Appel de la logique commune
+            executeNewmanAndProcessResults(file.getAbsolutePath());
+        } catch (URISyntaxException | NullPointerException e) {
+            System.err.println("Erreur critique: Impossible de trouver ou charger le fichier de collection par défaut '" + defaultCollectionResourceName + "' dans les ressources: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "resource_not_found")).increment();
+        } catch (Exception e) {
+            System.err.println("Erreur inattendue lors de la préparation de l'exécution planifiée: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "setup_error")).increment();
+        }
+        System.out.println("Fin de l'exécution planifiée des tests Newman.");
+    }
+
+    // --- Traitement Manuel depuis JSON (Optionnel) ---
+    public String processPostmanCollection(String postmanCollectionJson) {
+        System.out.println("Début du traitement manuel de la collection Postman fournie.");
+        Path tempFilePath = null;
+        try {
+            tempFilePath = Files.createTempFile("postman_manual_", ".json");
+            System.out.println("Fichier temporaire créé : " + tempFilePath.toString());
+            Files.writeString(tempFilePath, postmanCollectionJson, StandardOpenOption.WRITE);
+            boolean processSuccess = executeNewmanAndProcessResults(tempFilePath.toAbsolutePath().toString());
+            // Le message de retour indique seulement si le *processus* Newman a réussi,
+            // les détails des tests sont dans les logs/métriques/BDD.
+            return processSuccess ? "Processus Newman terminé avec succès." : "Processus Newman terminé avec erreurs (voir logs).";
+        } catch (IOException e) {
+            System.err.println("Erreur I/O lors de la création/écriture du fichier temporaire: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "temp_file_io")).increment();
+            return "Erreur I/O lors de la préparation du traitement : " + e.getMessage();
+        } catch (Exception e) {
+            System.err.println("Erreur inattendue lors du traitement manuel de la collection: " + e.getMessage());
+            e.printStackTrace();
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", "unknown_manual")).increment();
+            return "Erreur inattendue lors du traitement : " + e.getMessage();
+        } finally {
+            if (tempFilePath != null) {
+                try { Files.deleteIfExists(tempFilePath); System.out.println("Fichier temporaire supprimé : " + tempFilePath.toString()); }
+                catch (IOException e) { System.err.println("Attention : Impossible de supprimer le fichier temporaire : " + tempFilePath + " - " + e.getMessage()); }
+            }
+            System.out.println("Fin du traitement manuel de la collection Postman fournie.");
+        }
+    }
+
+    // --- Logique Commune Exécution Newman & Traitement Résultats ---
+    private boolean executeNewmanAndProcessResults(String collectionPath) throws IOException, InterruptedException, Exception {
+        System.out.println("Exécution de Newman pour la collection : " + collectionPath);
+        List<ParsedResult> currentRunResults = new ArrayList<>();
+        boolean processSuccess = false; // Succès du *processus* Newman
+
+        // Chemin Newman codé en dur
+        String hardcodedNewmanCommandPath = "C:\\Users\\LENOVO\\AppData\\Roaming\\npm\\newman.cmd";
+        System.out.println("Utilisation du chemin Newman hardcodé : " + hardcodedNewmanCommandPath);
+
+        // Configuration et lancement du processus Newman
+        ProcessBuilder processBuilder = new ProcessBuilder(
+                hardcodedNewmanCommandPath, "run", collectionPath, "--reporters", "cli"
+        );
+        processBuilder.redirectErrorStream(true); // Combine stdout et stderr
+        Process process = processBuilder.start();
+
+        // Lecture et parsing de la sortie Newman
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            parseNewmanOutput(reader, currentRunResults); // Remplit currentRunResults
+        } // Le reader est fermé automatiquement
+
+        // Attente de la fin du processus Newman
+        int exitCode = process.waitFor();
+        System.out.println(exitCode == 0 ? "Processus Newman terminé avec succès (code 0)." : "Processus Newman terminé avec des erreurs (code " + exitCode + ").");
+        processSuccess = (exitCode == 0); // exitCode 0 = Newman a pu s'exécuter sans crash
+
+        // Mise à jour BDD et Métriques basées sur les résultats parsés
+        updatePersistenceAndMetrics(currentRunResults);
+
+        // Log erreur si le processus Newman échoue ou si le parsing échoue complètement
+        if (!processSuccess || currentRunResults.isEmpty() && exitCode == 0) { // Ajout condition parsing vide même si exit 0
+            meterRegistry.counter("newman_run_errors_total", Tags.of("reason", processSuccess ? "parsing_failure" : "newman_exit_code")).increment();
+        }
+
+        return processSuccess; // Retourne si le processus Newman lui-même a réussi
+    }
+
+    // --- Logique de Parsing de la Sortie Newman ---
+    /*private void parseNewmanOutput(BufferedReader reader, List<ParsedResult> results) throws Exception {
+        String line;
+        ParsedResult currentResult = null;
+        StringBuilder errorMessageBuilder = new StringBuilder();
+        boolean inErrorBlock = false; // Pour capturer le contexte d'erreur
+        boolean hasNumDotError = false; // Indicateur clé : erreur d'assertion numérotée trouvée
+        boolean expectingRequestDetails = false; // Indicateur état : attend la ligne GET/POST...
+
+        // Patterns Regex pour extraire les infos
+        Pattern requestLinePattern = Pattern.compile("^\\s*(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+(https?://[^\\s]+)\\s+\\[(.*?)\\]");
+        Pattern statusPattern = Pattern.compile("(\\d{3})\\s+[^,]+,\\s+[^,]+,\\s+(\\d+)ms");
+
+        while ((line = reader.readLine()) != null) {
+            // System.out.println("Ligne lue : " + line); // Décommenter pour débogage très détaillé
+
+            // Cas 1: On attendait la ligne avec GET/POST... après une ligne '└'
+            if (currentResult != null && expectingRequestDetails) {
+                expectingRequestDetails = false; // On traite cette attente
+                Matcher requestMatcher = requestLinePattern.matcher(line);
+                if (requestMatcher.find()) { // Format attendu trouvé
+                    currentResult.httpMethod = requestMatcher.group(1);
+                    String fullUrl = requestMatcher.group(2);
+                    String statusAndTimePart = requestMatcher.group(3); // Partie entre crochets [...]
+                    try {
+                        // Extraction Path depuis URL
+                        URI uri = new URI(fullUrl);
+                        currentResult.path = uri.getPath();
+                        if (uri.getQuery() != null) currentResult.path += "?" + uri.getQuery();
+
+                        // Vérification Erreur Newman explicite ou extraction Status/Temps
+                        if (line.contains("[errored]")) {
+                            currentResult.statusCode = 0; currentResult.responseTime = 0;
+                            errorMessageBuilder.append("Request Errored: ").append(line.trim());
+                            inErrorBlock = true;
+                        } else {
+                            Matcher statusMatcher = statusPattern.matcher(statusAndTimePart);
+                            if (statusMatcher.find()) { // Status/Temps trouvés
+                                currentResult.statusCode = Integer.parseInt(statusMatcher.group(1));
+                                currentResult.responseTime = Long.parseLong(statusMatcher.group(2));
+                            } else { // Échec extraction status/temps
+                                System.err.println("  Impossible d'extraire status/temps de : " + statusAndTimePart + " pour " + currentResult.apiName + " sur la ligne: " + line);
+                                currentResult.statusCode = 0; currentResult.responseTime = 0;
+                                errorMessageBuilder.append("Erreur parsing Status/Temps sur ligne attendue: ").append(line.trim());
+                                inErrorBlock = true;
+                            }
+                        }
+                    } catch (Exception e) { // Erreur extraction URL/Path
+                        System.err.println("  Erreur lors de l'extraction du path/status depuis : " + line + " pour " + currentResult.apiName + " - " + e.getMessage());
+                        currentResult.path = "Unknown Path";
+                        errorMessageBuilder.append("Erreur parsing URL/Status: ").append(e.getMessage());
+                        inErrorBlock = true;
+                    }
+                } else { // Mauvais format pour la ligne après '└'
+                    System.err.println("  Format inattendu pour la ligne de détails de requête attendue: " + line + " pour " + currentResult.apiName);
+                    if (currentResult.path == null) currentResult.path = "Unknown Path";
+                    errorMessageBuilder.append("Format de ligne de requête (après └) inattendu: ").append(line.trim());
+                    inErrorBlock = true;
+                }
+                // Cas 2: Début d'un nouveau test (ligne '□' ou '→')
+            } else if (line.trim().startsWith("□ ") || line.trim().startsWith("→ ")) {
+                // Finaliser le test précédent s'il existe
+                if (currentResult != null) {
+                    finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+                }
+                // Initialiser pour le nouveau test
+                currentResult = new ParsedResult();
+                currentResult.apiName = line.substring(line.indexOf(" ")).trim();
+                errorMessageBuilder.setLength(0); // Vider buffer erreur
+                inErrorBlock = false;
+                hasNumDotError = false; // Réinitialiser indicateur d'erreur d'assertion
+                expectingRequestDetails = false;
+                // Cas 3: Ligne '└', on s'attend aux détails sur la ligne suivante
+            } else if (currentResult != null && line.trim().startsWith("└")) {
+                expectingRequestDetails = true;
+                // Cas 4: Ligne assertion passée '√'
+            } else if (line.trim().startsWith("√") && currentResult != null) {
+                // Aucune action spécifique nécessaire, l'absence de hasNumDotError suffit
+                // Cas 5: Autres lignes pendant un test en cours
+            } else if (currentResult != null) {
+                // Recherche d'erreurs d'assertion numérotées ('1. ...', '2. ...')
+                Pattern errorPattern = Pattern.compile("^\\s*\\d+\\.\\s+(.*)");
+                Matcher errorMatcher = errorPattern.matcher(line);
+                if (errorMatcher.find()) { // Erreur d'assertion trouvée
+                    if (!hasNumDotError) { // Première erreur pour ce test
+                        errorMessageBuilder.append("Assertion Errors:\n");
+                    }
+                    errorMessageBuilder.append("  - ").append(errorMatcher.group(1).trim()).append("\n");
+                    inErrorBlock = true;
+                    hasNumDotError = true; // !! Marque l'échec du script !!
+                } else if (inErrorBlock && line.trim().length() > 0 && !line.trim().matches("^[┌│├└].*")) {
+                    // Si on est dans un bloc d'erreur, capturer les lignes suivantes qui ne sont pas de la déco
+                    errorMessageBuilder.append("    ").append(line.trim()).append("\n");
+                }
+            }
+        } // Fin de la boucle while (lecture des lignes)
+
+        // Traiter le tout dernier résultat après la fin de la lecture
+        if (currentResult != null) {
+            finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+        }
+    }*/
+    // --- Logique de Parsing de la Sortie Newman (Refondue pour Structure Dossier/Requête) ---
+    /*maye5edhch en considération seconde*/
+    /*private void parseNewmanOutput(BufferedReader reader, List<ParsedResult> results) throws Exception {
+        String line;
+        ParsedResult currentResult = null; // Le résultat en cours de construction pour UNE requête (après un '└')
+        StringBuilder errorMessageBuilder = new StringBuilder();
+        boolean inErrorBlock = false;
+        boolean hasNumDotError = false;
+        // boolean expectingRequestDetails = false; // On n'attend plus après '└', on cherche directement après
+
+        // Patterns Regex (inchangés)
+        Pattern requestLinePattern = Pattern.compile("^\\s*(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+(https?://[^\\s]+)\\s+\\[(.*?)\\]");
+        Pattern statusPattern = Pattern.compile("(\\d{3})\\s+[^,]+,\\s+[^,]+,\\s+(\\d+)ms");
+        String currentFolderName = "Global"; // Garder trace du dossier courant (optionnel mais utile pour logs)
+
+        while ((line = reader.readLine()) != null) {
+            // System.out.println("DEBUG Ligne: " + line);
+
+            // --- Marqueur de Dossier ---
+            if (line.trim().startsWith("□ ") || line.trim().startsWith("→ ")) {
+                // Finaliser la *dernière requête* du dossier précédent si elle existe
+                if (currentResult != null) {
+                    finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+                    currentResult = null; // Prêt pour le prochain '└'
+                }
+                // Mettre à jour le nom du dossier courant
+                currentFolderName = line.substring(line.indexOf(" ")).trim();
+                // System.out.println("DEBUG: Entrée Dossier: " + currentFolderName);
+                // Réinitialiser les états d'erreur pour le nouveau dossier/contexte
+                errorMessageBuilder.setLength(0);
+                inErrorBlock = false;
+                hasNumDotError = false;
+                continue; // Passer à la ligne suivante
+            }
+
+            // --- Marqueur de Requête Exécutée ---
+            if (line.trim().startsWith("└ ")) {
+                // Finaliser la requête *précédente* (si elle existait)
+                if (currentResult != null) {
+                    finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+                }
+                // Initialiser pour CETTE requête
+                currentResult = new ParsedResult();
+                currentResult.apiName = line.substring(line.indexOf(" ")).trim(); // Nom vient de la ligne '└'
+                errorMessageBuilder.setLength(0);
+                inErrorBlock = false;
+                hasNumDotError = false;
+                // System.out.println("DEBUG: Début Requête: " + currentResult.apiName + " (Dossier: " + currentFolderName + ")");
+                continue; // Passer à la ligne suivante, on attend GET/POST...
+            }
+
+            // Si on n'a pas encore vu de '└' pour initialiser, ignorer la ligne
+            if (currentResult == null) {
+                // Ignorer les lignes avant la première requête (└) ou entre dossiers
+                continue;
+            }
+
+            // --- Capture de la ligne de détails GET/POST... ---
+            // On suppose qu'elle suit directement ou indirectement la ligne '└'
+            // (On ne la cherche que si méthode et path sont encore null)
+            if (currentResult.httpMethod == null && currentResult.path == null) {
+                Matcher requestMatcher = requestLinePattern.matcher(line);
+                if (requestMatcher.find()) {
+                    // System.out.println("DEBUG: Ligne détails trouvée pour " + currentResult.apiName + ": " + line);
+                    currentResult.httpMethod = requestMatcher.group(1);
+                    String fullUrl = requestMatcher.group(2);
+                    String statusAndTimePart = requestMatcher.group(3);
+                    try {
+                        URI uri = new URI(fullUrl); // << DOIT ETRE CORRIGE EN AMONT SI PLACEHOLDERS RESTANTS
+                        currentResult.path = uri.getPath();
+                        if (uri.getQuery() != null) currentResult.path += "?" + uri.getQuery();
+
+                        if (line.contains("[errored]")) {
+                            currentResult.statusCode = 0; currentResult.responseTime = 0;
+                            errorMessageBuilder.append("Request Errored: ").append(line.trim());
+                            inErrorBlock = true;
+                        } else {
+                            Matcher statusMatcher = statusPattern.matcher(statusAndTimePart);
+                            if (statusMatcher.find()) {
+                                currentResult.statusCode = Integer.parseInt(statusMatcher.group(1));
+                                currentResult.responseTime = Long.parseLong(statusMatcher.group(2));
+                            } else {
+                                System.err.println("  Impossible d'extraire status/temps de : " + statusAndTimePart + " pour " + currentResult.apiName + " sur ligne: " + line);
+                                currentResult.statusCode = 0; currentResult.responseTime = 0;
+                                errorMessageBuilder.append("Erreur parsing Status/Temps: ").append(line.trim());
+                                inErrorBlock = true;
+                            }
+                        }
+                    } catch (Exception e) { // Principalement URISyntaxException si URL invalide
+                        System.err.println("  Erreur parsing URL/Status depuis : " + line + " pour " + currentResult.apiName + " - " + e.getMessage());
+                        currentResult.path = "Unknown Path"; // Marquer comme invalide
+                        // currentResult.httpMethod est déjà setté depuis le matcher
+                        currentResult.statusCode = 0; currentResult.responseTime = 0;
+                        errorMessageBuilder.append("Erreur parsing URL/Status (").append(e.getClass().getSimpleName()).append("): ").append(e.getMessage());
+                        inErrorBlock = true;
+                    }
+                    continue; // Ligne GET/POST traitée, passer à la suivante
+                }
+                // Si ce n'est pas la ligne GET/POST attendue, on continue, elle arrivera peut-être plus tard
+                // (ou on la manquera si la structure change trop)
+            }
+
+            // --- Capture des Assertions et Erreurs (pour la requête courante) ---
+            if (line.trim().startsWith("√")) {
+                continue; // Ignorer assertions réussies
+            }
+
+            Pattern errorPattern = Pattern.compile("^\\s*\\d+\\.\\s+(.*)");
+            Matcher errorMatcher = errorPattern.matcher(line);
+            if (errorMatcher.find()) { // Erreur d'assertion numérotée
+                if (!hasNumDotError) { errorMessageBuilder.append("Assertion Errors:\n"); }
+                errorMessageBuilder.append("  - ").append(errorMatcher.group(1).trim()).append("\n");
+                inErrorBlock = true;
+                hasNumDotError = true; // Marqueur d'échec du script
+                continue;
+            }
+
+            // Capturer contexte d'erreur (lignes non vides, non déco, non assertion √)
+            if (inErrorBlock && line.trim().length() > 0 && !line.trim().matches("^[┌│├└√□→].*")) {
+                errorMessageBuilder.append("    ").append(line.trim()).append("\n");
+            }
+
+        } // Fin while
+
+        // --- Traitement du TOUT dernier résultat ---
+        if (currentResult != null) {
+            // Vérifier si les détails essentiels ont été capturés pour le dernier
+            if (currentResult.httpMethod == null || currentResult.path == null) {
+                System.err.println("ERREUR PARSING: Fin de la sortie atteinte avant d'avoir les détails complets pour la dernière requête: " + currentResult.apiName);
+                currentResult.path = currentResult.path == null ? "Unknown Path (Incomplete End)" : currentResult.path;
+                errorMessageBuilder.append("Parsing Error: End of stream reached before request details line found.");
+                inErrorBlock = true; // Assurer marquage erreur
+            }
+            finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+        }
+    }*/ // Fin parseNewmanOutput
+
+    // --- Logique de Parsing de la Sortie Newman (CORRIGÉE pour Temps ms/s ET Structure) ---
+    private void parseNewmanOutput(BufferedReader reader, List<ParsedResult> results) throws Exception {
+        String line;
+        ParsedResult currentResult = null; // Le résultat en cours de construction pour UNE requête (après un '└')
+        StringBuilder errorMessageBuilder = new StringBuilder();
+        boolean inErrorBlock = false;
+        boolean hasNumDotError = false;
+
+        // Pattern pour la ligne de requête principale (inchangé)
+        Pattern requestLinePattern = Pattern.compile("^\\s*(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+(https?://[^\\s]+)\\s+\\[(.*?)\\]");
+
+        // *** PATTERN CORRIGÉ pour Status/Temps (gère ms et s) ***
+        // Groupe 1: Status Code (\d{3})
+        // Groupe 2: Valeur Temps ([\d.]+) - chiffres ou point
+        // Groupe 3: Unité (ms|s) - ms ou s
+        Pattern statusPattern = Pattern.compile("(\\d{3})\\s+[^,]+,\\s+[^,]+,\\s+([\\d.]+)(ms|s)");
+        // *********************************************************
+
+        String currentFolderName = "Global";
+
+        while ((line = reader.readLine()) != null) {
+            // System.out.println("DEBUG Ligne: " + line);
+
+            // --- Marqueur de Dossier ---
+            if (line.trim().startsWith("□ ") || line.trim().startsWith("→ ")) {
+                if (currentResult != null) {
+                    finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+                    currentResult = null;
+                }
+                currentFolderName = line.substring(line.indexOf(" ")).trim();
+                errorMessageBuilder.setLength(0); inErrorBlock = false; hasNumDotError = false;
+                continue;
+            }
+
+            // --- Marqueur de Requête Exécutée ---
+            if (line.trim().startsWith("└ ")) {
+                if (currentResult != null) {
+                    finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+                }
+                currentResult = new ParsedResult();
+                currentResult.apiName = line.substring(line.indexOf(" ")).trim();
+                errorMessageBuilder.setLength(0); inErrorBlock = false; hasNumDotError = false;
+                continue;
+            }
+
+            if (currentResult == null) continue;
+
+            // --- Capture de la ligne de détails GET/POST... ---
+            if (currentResult.httpMethod == null && currentResult.path == null) {
+                Matcher requestMatcher = requestLinePattern.matcher(line);
+                if (requestMatcher.find()) {
+                    currentResult.httpMethod = requestMatcher.group(1);
+                    String fullUrl = requestMatcher.group(2);
+                    String statusAndTimePart = requestMatcher.group(3);
+
+                    // --- Workaround Optionnel pour URL invalide ---
+                    String sanitizedUrl = fullUrl;
+                    // Exemple : Remplacer <integer> si présent (adaptez si nécessaire)
+                    String placeholder = "<integer>";
+                    if (sanitizedUrl.contains(placeholder)) {
+                        String replacement = "3"; // Mettre une valeur numérique valide
+                        sanitizedUrl = sanitizedUrl.replace(placeholder, replacement);
+                        System.out.println("WARN: URL nettoyée : '" + fullUrl + "' -> '" + sanitizedUrl + "'");
+                    }
+                    // --- Fin Workaround ---
+
+                    try {
+                        // Utiliser l'URL (potentiellement nettoyée)
+                        URI uri = new URI(sanitizedUrl);
+                        currentResult.path = uri.getPath();
+                        if (uri.getQuery() != null) currentResult.path += "?" + uri.getQuery();
+
+                        if (line.contains("[errored]")) {
+                            currentResult.statusCode = 0; currentResult.responseTime = 0;
+                            errorMessageBuilder.append("Request Errored: ").append(line.trim());
+                            inErrorBlock = true;
+                        } else {
+                            // *** Utilisation du PATTERN CORRIGÉ Status/Temps ***
+                            Matcher statusMatcher = statusPattern.matcher(statusAndTimePart);
+                            if (statusMatcher.find()) {
+                                try {
+                                    currentResult.statusCode = Integer.parseInt(statusMatcher.group(1)); // Status
+
+                                    String timeValueStr = statusMatcher.group(2); // Valeur temps (String)
+                                    String timeUnit = statusMatcher.group(3);     // Unité (String)
+
+                                    double timeValue = Double.parseDouble(timeValueStr); // Parser en double
+
+                                    if ("s".equalsIgnoreCase(timeUnit)) {
+                                        timeValue = timeValue * 1000; // Convertir secondes en ms
+                                    }
+
+                                    currentResult.responseTime = Math.round(timeValue); // Arrondir et stocker
+
+                                } catch (NumberFormatException nfe) {
+                                    System.err.println("  Erreur format numérique Status/Temps : '" + statusAndTimePart + "' pour " + currentResult.apiName + " - " + nfe.getMessage());
+                                    currentResult.statusCode = 0; currentResult.responseTime = 0;
+                                    errorMessageBuilder.append("Erreur format numérique Status/Temps: ").append(statusAndTimePart);
+                                    inErrorBlock = true;
+                                }
+                            } else { // Le pattern corrigé n'a pas matché
+                                System.err.println("  Impossible d'extraire status/temps (pattern corrigé) de : '" + statusAndTimePart + "' pour " + currentResult.apiName + " sur ligne: " + line);
+                                currentResult.statusCode = 0; currentResult.responseTime = 0;
+                                errorMessageBuilder.append("Erreur parsing Status/Temps (Pattern): ").append(statusAndTimePart);
+                                inErrorBlock = true;
+                            }
+                            // *****************************************************
+                        }
+                    } catch (URISyntaxException e) { // Erreur si l'URL (même nettoyée) reste invalide
+                        System.err.println("  Erreur parsing URL/Status depuis : " + line + " pour " + currentResult.apiName + " - " + e.getMessage());
+                        currentResult.path = "Unknown Path";
+                        currentResult.statusCode = 0; currentResult.responseTime = 0;
+                        errorMessageBuilder.append("Erreur parsing URL/Status (").append(e.getClass().getSimpleName()).append("): ").append(e.getMessage());
+                        inErrorBlock = true;
+                    } catch (Exception e) { // Autres erreurs
+                        System.err.println("  Erreur inattendue lors du traitement de la ligne de détails : " + line + " pour " + currentResult.apiName + " - " + e.getMessage());
+                        currentResult.path = "Unknown Path";
+                        currentResult.statusCode = 0; currentResult.responseTime = 0;
+                        errorMessageBuilder.append("Erreur Générale Traitement Détails: ").append(e.getMessage());
+                        inErrorBlock = true;
+                    }
+                    continue; // Ligne GET/POST traitée
+                }
+            }
+
+            // --- Capture des Assertions et Erreurs (inchangé) ---
+            if (line.trim().startsWith("√")) {
+                continue;
+            }
+            Pattern errorPattern = Pattern.compile("^\\s*\\d+\\.\\s+(.*)");
+            Matcher errorMatcher = errorPattern.matcher(line);
+            if (errorMatcher.find()) {
+                if (!hasNumDotError) { errorMessageBuilder.append("Assertion Errors:\n"); }
+                errorMessageBuilder.append("  - ").append(errorMatcher.group(1).trim()).append("\n");
+                inErrorBlock = true; hasNumDotError = true;
+                continue;
+            }
+            if (inErrorBlock && line.trim().length() > 0 && !line.trim().matches("^[┌│├└√□→].*")) {
+                errorMessageBuilder.append("    ").append(line.trim()).append("\n");
+            }
+
+        } // Fin while
+
+        // --- Traitement du TOUT dernier résultat (inchangé) ---
+        if (currentResult != null) {
+            if (currentResult.httpMethod == null || currentResult.path == null) {
+                System.err.println("ERREUR PARSING: Fin de la sortie atteinte avant d'avoir les détails complets pour la dernière requête: " + currentResult.apiName);
+                currentResult.path = currentResult.path == null ? "Unknown Path (Incomplete End)" : currentResult.path;
+                errorMessageBuilder.append("Parsing Error: End of stream reached before request details line found.");
+                inErrorBlock = true;
+            }
+            finalizeAndAddResult(currentResult, hasNumDotError, errorMessageBuilder, results);
+        }
+    } // Fin parseNewmanOutput
+    // --- Aide pour Finaliser Résultat & Déterminer Succès (Logique Corrigée) ---
+    private void finalizeAndAddResult(ParsedResult result, boolean hasNumDotError, StringBuilder errorMsgBuilder, List<ParsedResult> resultsList) {
+        // Vérification initiale si les infos de base sont présentes
+        if (result.path == null || result.httpMethod == null) {
+            System.err.println("Skipping result for API '" + result.apiName + "' due to missing path or method.");
+            if (errorMsgBuilder.length() > 0) System.err.println("  Captured error context: " + errorMsgBuilder.toString());
+            return; // Ne pas traiter ce résultat incomplet
+        }
+
+        // --- LOGIQUE DE SUCCES BASÉE SUR LES ASSERTIONS POSTMAN ---
+        // Le test est considéré comme un ECHEC si :
+        // 1. Le chemin n'a pas pu être déterminé (`Unknown Path`).
+        // 2. Newman a marqué la requête comme `[errored]`.
+        // 3. Des erreurs d'assertion numérotées (`hasNumDotError`) ont été détectées.
+        if ("Unknown Path".equals(result.path) || errorMsgBuilder.toString().contains("Request Errored:") || hasNumDotError) {
+            result.success = false;
+            // Ajouter un message générique si aucun message spécifique n'a été capturé
+            if (errorMsgBuilder.length() == 0) {
+                if(hasNumDotError) errorMsgBuilder.append("Assertion failed, details not captured.");
+                else errorMsgBuilder.append("Request failed during setup, parsing or due to [errored] tag.");
+            }
+        }
+        // Sinon (aucune des conditions d'échec ci-dessus), le test est considéré comme un SUCCES
+        else {
+            result.success = true;
+            // Optionnel: Nettoyer les messages d'erreur générés par défaut si le test a réussi ses assertions
+            String currentError = errorMsgBuilder.toString();
+            if (currentError.startsWith("Request failed with status code:") || currentError.startsWith("Unexpected status code:")) {
+                errorMsgBuilder.setLength(0); // On efface car le script a réussi
+            }
+        }
+        // --- FIN LOGIQUE ---
+
+        result.errorMessage = errorMsgBuilder.toString().trim();
+
+        // Log final pour ce test
+        System.out.println("Résultat finalisé: Path=" + result.path + ", Method=" + result.httpMethod +
+                ", Success=" + result.success + // <= Reflète le succès du script Postman
+                ", Status=" + result.statusCode + ", Time=" + result.responseTime + "ms" +
+                (result.errorMessage.isEmpty() ? "" : ", Error=Present")); // Indique si un msg d'erreur existe
+
+        // Ajout à la liste des résultats de cette exécution
+        resultsList.add(result);
+    }
+
+    // --- Mise à Jour Base de Données & Métriques ---
+    private void updatePersistenceAndMetrics(List<ParsedResult> results) {
+        LocalDateTime now = LocalDateTime.now();
+        final long nowEpochSeconds = now.atZone(ZoneId.systemDefault()).toEpochSecond();
+
+        System.out.println("Traitement de " + results.size() + " résultats parsés.");
+        if (results.isEmpty()) {
+            System.out.println("Aucun résultat valide n'a été parsé depuis la sortie de Newman.");
+            // Si aucun résultat n'est parsé, on met quand même à jour le timestamp
+            // pour indiquer que la tâche a tourné.
+        }
+
+        // Traitement de chaque résultat parsé
+        for (ParsedResult result : results) {
+            // Ignorer les résultats incomplets (sécurité supplémentaire)
+            if ("Unknown Path".equals(result.path) || result.httpMethod == null) {
+                System.out.println("Ignorer la mise à jour pour un résultat incomplet : " + result.apiName);
+                continue;
+            }
+            // Mettre à jour les métriques Prometheus pour ce test
+            updateMetricsForResult(result);
+            // Persister le résultat en base de données si le repository est configuré
+            if (resultRepository != null) {
+                persistResult(result, now);
+            }
+        }
+
+        // Mise à jour de la valeur du timestamp pour le Gauge enregistré dans le constructeur
+        this.lastCompletionTimestamp.set(nowEpochSeconds);
+        // L'enregistrement du Gauge est fait dans le constructeur, pas ici.
+    }
+
+
+    // --- Logique Mise à Jour Métriques par Test ---
+    private void updateMetricsForResult(ParsedResult result) {
+        String metricKey = result.httpMethod + ":" + result.path; // Clé unique pour la map en mémoire
+        // Tags pour les labels Prometheus
+        Tags tags = Tags.of(
+                Tag.of("path", result.path),
+                Tag.of("method", result.httpMethod),
+                Tag.of("api_name", result.apiName != null ? result.apiName : "unknown") // Nom de l'API depuis la collection
+        );
+
+        // Récupère ou crée l'objet contenant les AtomicLong/Int pour ce test
+        TestMetricData metricData = latestTestMetrics.computeIfAbsent(metricKey, k -> {
+            // Enregistre les Gauges SEULEMENT lors de la première rencontre de ce test
+            TestMetricData newData = new TestMetricData();
+            // Gauge pour le temps de réponse
+            Gauge.builder("newman_test_response_time_ms", newData.responseTimeMs::get).tags(tags).description("Response time in milliseconds for the Newman test").register(meterRegistry);
+            // Gauge pour le code statut HTTP réel
+            Gauge.builder("newman_test_status_code", newData.statusCode::get).tags(tags).description("HTTP status code for the Newman test").register(meterRegistry);
+            // Gauge pour le succès basé sur les scripts Postman
+            Gauge.builder("newman_test_success", newData.success::get).tags(tags).description("Indicates if the Postman test script passed (1) or failed (0)").register(meterRegistry);
+            System.out.println("Registered new metrics for: " + k); // Log seulement à la création
+            return newData;
+        });
+
+        // Met à jour les valeurs atomiques. Le Gauge lira ces nouvelles valeurs.
+        metricData.responseTimeMs().set(result.responseTime);
+        metricData.statusCode().set(result.statusCode); // Code HTTP réel
+        metricData.success().set(result.success ? 1 : 0); // Succès basé sur assertions
+    }
+
+    // --- Logique Persistance Base de Données ---
+    @Transactional // Assure la gestion transactionnelle si JPA/Hibernate est utilisé
+    protected void persistResult(ParsedResult parsedResult, LocalDateTime timestamp) {
+        // Ignorer les chemins inconnus
+        if ("Unknown Path".equals(parsedResult.path)) {
+            System.out.println("Ignorer l'enregistrement DB pour Unknown Path");
+            return;
+        }
+        try {
+            // Déterminer le niveau de log basé sur le succès des scripts Postman
+            String level = !parsedResult.success ? "ERROR" : "INFO";
+
+            // Créer la chaîne JSON pour les métadonnées (utilisée comme clé unique)
+            ObjectNode metadata = objectMapper.createObjectNode();
+            metadata.put("path", parsedResult.path);
+            metadata.put("method", parsedResult.httpMethod);
+            String metadataString = metadata.toString();
+
+            // Chercher un enregistrement existant basé sur les métadonnées
+            // Assurez-vous que ApiMonitoringRepository a cette méthode et que metadata est unique en BDD
+            Optional<ApiMonitoring> existingResult = resultRepository.findByMetadata(metadataString);
+
+            ApiMonitoring dbRecord; // L'objet entité à sauvegarder
+            if (existingResult.isPresent()) {
+                // Mise à jour d'un enregistrement existant
+                dbRecord = existingResult.get();
+                // System.out.println("Mise à jour de l'enregistrement DB pour : " + parsedResult.path + " (" + parsedResult.httpMethod + ")"); // Log optionnel
+            } else {
+                // Création d'un nouvel enregistrement
+                dbRecord = new ApiMonitoring();
+                dbRecord.setPath(parsedResult.path);       // Chemin de l'API
+                dbRecord.setMetadata(metadataString);      // Clé unique metadata
+                // Assurez-vous que votre entité ApiMonitoring a un champ 'method' si vous voulez le stocker séparément
+                // Si non, il est déjà dans metadata. Si oui, ajoutez : dbRecord.setMethod(parsedResult.httpMethod);
+                System.out.println("Création d'un nouvel enregistrement DB pour : " + parsedResult.path + " (" + parsedResult.httpMethod + ")");
+            }
+
+            // Mettre à jour les champs communs (pour création et mise à jour)
+            dbRecord.setTemps(timestamp);                              // Heure du test
+            dbRecord.setResponseTime(parsedResult.responseTime);       // Temps de réponse réel
+            dbRecord.setStatusCode(parsedResult.statusCode);           // Code HTTP réel
+            dbRecord.setErrorMessage(parsedResult.errorMessage.isEmpty() ? null : parsedResult.errorMessage); // Msg erreur (assertions...)
+            dbRecord.setLevel(level);                                  // INFO/ERROR basé sur succès script
+
+            // Sauvegarder l'entité (crée ou met à jour)
+            resultRepository.save(dbRecord);
+
+        } catch (Exception e) {
+            // Gestion des erreurs lors de l'interaction avec la BDD
+            System.err.println("Erreur lors de l'enregistrement DB pour : " + parsedResult.path + " (" + parsedResult.httpMethod + "): " + e.getMessage());
+            e.printStackTrace(); // Afficher la trace complète pour le débogage
+        }
+    }
+
+    // --- Classe d'Aide pour Résultats Parsés ---
+    // Structure interne pour stocker les données extraites pendant le parsing
+    private static class ParsedResult {
+        String apiName;         // Nom de la requête dans Postman
+        String path;            // Chemin de l'API (/api/users)
+        String httpMethod;      // GET, POST, etc.
+        boolean success = false;// Succès basé sur les scripts Postman
+        int statusCode = 0;     // Code HTTP réel retourné
+        long responseTime = 0;  // Temps de réponse réel en ms
+        String errorMessage = "";// Erreurs capturées (assertions, parsing...)
+    }
+
+    // --- Placeholders Entité & Repository ---
+    // Vous devez avoir défini vos classes ApiMonitoring et ApiMonitoringRepository ailleurs
+    /*
+    // Exemple ApiMonitoring.java (dans un package model/entity)
+    import jakarta.persistence.*; // ou javax.persistence.*
+    import java.time.LocalDateTime;
+    @Entity
+    @Table(name = "api_monitoring") // Nom de votre table
+    public class ApiMonitoring {
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+        private String path;
+        private LocalDateTime temps;
+        private long responseTime;
+        private int statusCode;
+        @Column(length = 2048) // Augmenter si les messages d'erreur sont longs
+        private String errorMessage;
+        private String level;
+        @Column(unique = true, length = 512) // Assurez l'unicité et taille suffisante pour metadata
+        private String metadata;
+        // --- GETTERS ET SETTERS pour tous les champs ---
+    }
+
+    // Exemple ApiMonitoringRepository.java (dans un package repository/persistence)
+    import org.springframework.data.jpa.repository.JpaRepository;
+    import java.util.Optional;
+    public interface ApiMonitoringRepository extends JpaRepository<ApiMonitoring, Long> {
+        // Méthode pour trouver par la clé metadata
+        Optional<ApiMonitoring> findByMetadata(String metadata);
+    }
+    */
 }
