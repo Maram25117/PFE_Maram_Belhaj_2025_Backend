@@ -2,7 +2,6 @@ package com.example.api_tierces.service;
 
 import com.example.api_tierces.model.Api;
 import com.example.api_tierces.repository.ApiRepository;
-import com.example.api_tierces.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

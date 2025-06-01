@@ -15,7 +15,7 @@ public class Schema {
     @Column(columnDefinition = "TEXT")
     private String schemas; // Contenu JSON du schéma
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

@@ -20,7 +20,7 @@ public class ApiMonitoring {
     private String level; // Niveau de log (INFO, ERROR)
     private String metadata; // Métadonnées (path et methode)
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

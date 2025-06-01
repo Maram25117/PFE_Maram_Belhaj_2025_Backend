@@ -14,17 +14,17 @@ public class ApiParametersService {
     @Autowired
     private ApiParametersRepository apiParametersRepository;
 
-    // Récupérer tous les paramètres
+
     public List<ApiParameters> getAllParameters() {
         return apiParametersRepository.findAll();
     }
 
-    // Récupérer un paramètre par ID
+
     public Optional<ApiParameters> getParameterById(Long id) {
         return apiParametersRepository.findById(id);
     }
 
-    // Récupérer les paramètres d'un API donné
+
     public List<ApiParameters> getParametersByApiId(Long apiId) {
         return apiParametersRepository.findByApiId(apiId);
     }

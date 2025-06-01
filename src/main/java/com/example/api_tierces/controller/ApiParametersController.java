@@ -2,6 +2,7 @@ package com.example.api_tierces.controller;
 
 import com.example.api_tierces.model.ApiParameters;
 import com.example.api_tierces.service.ApiParametersService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name = "Table Api-Parameters")
+@Tag(name = "Api Parameters")
 @RestController
 @RequestMapping("/api/parameters")
 public class ApiParametersController {
@@ -18,13 +19,13 @@ public class ApiParametersController {
     @Autowired
     private ApiParametersService apiParametersService;
 
-    // Récupérer tous les paramètres
+    @Operation(summary = "Récupérer tous les paramétres")
     @GetMapping
     public List<ApiParameters> getAllParameters() {
         return apiParametersService.getAllParameters();
     }
 
-    // Récupérer un paramètre par son ID
+    @Operation(summary = "Récupérer un paramétre par son id")
     @GetMapping("/{id}")
     public ResponseEntity<ApiParameters> getParameterById(@PathVariable Long id) {
         Optional<ApiParameters> parameter = apiParametersService.getParameterById(id);
@@ -32,7 +33,7 @@ public class ApiParametersController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Récupérer les paramètres d'un API donné
+    @Operation(summary = "Récupérer un paramétre par son Api id")
     @GetMapping("/api/{apiId}")
     public List<ApiParameters> getParametersByApiId(@PathVariable Long apiId) {
         return apiParametersService.getParametersByApiId(apiId);

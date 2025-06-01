@@ -8,8 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface ApiRepository extends JpaRepository<Api, Long>{
+    // méthode personnalisé
     boolean existsByPathAndMethod(String path, String method);
     Optional<Api> findByPath(String path);
     Api findByPathAndMethod(String path, String method);
-    //Optional<Api> findByPathAndMethod(String path, String method);
 }

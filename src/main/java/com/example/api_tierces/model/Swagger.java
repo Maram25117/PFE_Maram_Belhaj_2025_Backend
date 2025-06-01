@@ -23,7 +23,6 @@ public class Swagger {
         this.url = url;
     }
 
-    // --- Getters et Setters ---
 
     public String getId() {
         return id;

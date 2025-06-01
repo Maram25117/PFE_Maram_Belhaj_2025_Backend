@@ -1,11 +1,11 @@
 {
   "info" : {
-    "_postman_id" : "8c407970-aa01-4c4e-9a83-5d8513418749",
+    "_postman_id" : "d6e5e916-fa1d-49f8-bfb3-23ee37aeb1e2",
     "name" : "Banking App API Copy",
     "description" : "API pour la gestion des comptes bancaires et des transactions.",
     "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id" : "36966437",
-    "_collection_link" : "https://api555-1527.postman.co/workspace/APIMonitor_Collection_Postman~e1325993-bf47-42d1-986b-ce9453944392/collection/36966437-8c407970-aa01-4c4e-9a83-5d8513418749?action=share&source=collection_link&creator=36966437"
+    "_collection_link" : "https://api555-1527.postman.co/workspace/test1~c7cda6ec-e028-429d-b5a9-8bd75f935b10/collection/36966437-d6e5e916-fa1d-49f8-bfb3-23ee37aeb1e2?action=share&source=collection_link&creator=36966437"
   },
   "item" : [ {
     "name" : "api",

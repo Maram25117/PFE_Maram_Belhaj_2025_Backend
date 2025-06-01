@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SchemaRepository extends JpaRepository<Schema, Long> {
-    List<Schema> findByName(String name);  // Méthode pour récupérer un schéma par son nom
+    List<Schema> findByName(String name);
 }

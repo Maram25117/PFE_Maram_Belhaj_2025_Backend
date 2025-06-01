@@ -10,13 +10,9 @@ import java.util.Optional;
 
 @Repository
 public interface ApiParametersRepository extends JpaRepository<ApiParameters, Long> {
-    // Trouver un ApiParameters par son ID
     Optional<ApiParameters> findById(Long id);
-
-    // Trouver tous les ApiParameters liés à un API spécifique
     List<ApiParameters> findByApiId(Long apiId);
     List<ApiParameters> findByApi(Api api);
     ApiParameters findByApiAndName(Api api, String name);
-    /*ApiParameters findByName(String name);*/
     List<ApiParameters> findByName(String name);
 }
